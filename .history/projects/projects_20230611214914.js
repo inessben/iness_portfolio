@@ -49,7 +49,7 @@ function init() {
 
     scene = new THREE.Scene();
     // scene.background = backgroundTexture
-    // // scene.fog = new THREE.Fog(0x000000, 1, 1000);
+    // scene.fog = new THREE.Fog(0x000000, 1, 1000);
 
     object = new THREE.Object3D();
     scene.add(object);
@@ -106,8 +106,8 @@ function onWindowResize() {
 function animate() {
     requestAnimationFrame(animate);
 
-    object.rotation.x += 0.001;
-    object.rotation.y += 0.002;
+    object.rotation.x += 0.005;
+    object.rotation.y += 0.01;
 
     composer.render();
 }

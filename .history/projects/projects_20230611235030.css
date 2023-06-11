@@ -67,12 +67,9 @@ main {
 }
 
 .projects {
-    position: relative;
-    margin-left: 50px;
     margin: 100px;
     font-family: "Pixel";
     border-radius: 10px;
-    align-items: center;
     color: #551B8B;
     font-size: 18px;
     display: inline-block;

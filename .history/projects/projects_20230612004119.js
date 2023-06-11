@@ -49,7 +49,7 @@ function init() {
 
     scene = new THREE.Scene();
     // scene.background = backgroundTexture
-    // // scene.fog = new THREE.Fog(0x000000, 1, 1000);
+    // scene.fog = new THREE.Fog(0x000000, 1, 1000);
 
     object = new THREE.Object3D();
     scene.add(object);
@@ -61,9 +61,9 @@ function init() {
 
         const mesh = new THREE.Mesh(geometry, material);
         const position = new THREE.Vector3(
-            (Math.random() - 0.5) * 4,
-            (Math.random() - 0.5) * 4,
-            (Math.random() - 0.5) * 4
+            (Math.random() - 0.5) * 2,
+            (Math.random() - 0.5) * 2,
+            (Math.random() - 0.5) * 2
         ).normalize();
         const scale = Math.random() * 50;
         const distance = Math.random() * 4000; // Augmenter la distance entre les sphères
@@ -106,8 +106,8 @@ function onWindowResize() {
 function animate() {
     requestAnimationFrame(animate);
 
-    object.rotation.x += 0.001;
-    object.rotation.y += 0.002;
+    object.rotation.x += 0.005;
+    object.rotation.y += 0.01;
 
     composer.render();
 }

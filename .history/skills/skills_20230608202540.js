@@ -106,8 +106,8 @@ function onWindowResize() {
 function animate() {
     requestAnimationFrame(animate);
 
-    object.rotation.x += 0.001;
-    object.rotation.y += 0.002;
+    object.rotation.x += 0.005;
+    object.rotation.y += 0.01;
 
     composer.render();
 }
