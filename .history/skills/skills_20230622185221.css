@@ -20,7 +20,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    /* overflow: hidden; */
+    overflow: hidden;
     list-style: none;
 }
 
@@ -55,16 +55,15 @@ h3 {
     margin: 5px;
 }
 
-.skills {
+.skill {
     width: 500px;
-    right: 10px;
     margin: 60px auto;
-    color: #e5e5e5;
+    color: #fff;
     padding: 20px;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25) 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
-.skills li {
+.skill li {
     margin: 20px 0;
     padding: 10px;
 }
@@ -86,8 +85,6 @@ h3 {
 .bar span {
     height: 20px;
     float: left;
-    border-radius: 10px;
-
     background: linear-gradient(135deg, rgba(236, 0, 140, 1)0%, rgba(252, 103, 103, 1)100%);
 }
 
@@ -96,149 +93,35 @@ h3 {
     animation: html 3s;
 }
 
-.css {
+.html {
     width: 90%;
-    animation: css 3s;
+    animation: html 3s;
 }
 
-.figma {
+.html {
     width: 90%;
-    animation: figma 3s;
+    animation: html 3s;
 }
 
-.bootstrap {
+.html {
     width: 90%;
-    animation: bootstrap 3s;
+    animation: html 3s;
 }
 
-.webgl {
-    width: 70%;
-    animation: webgl 3s;
-}
-
-.javascript {
-    width: 70%;
-    animation: javascript 3s;
-}
-
-.react {
-    width: 50%;
-    animation: react 3s;
-}
-
-.illustrator {
-    width: 50%;
-    animation: illustrator 3s;
-}
-
-.photoshop {
-    width: 50%;
-    animation: photoshop 3s;
-}
-
-@keyframes html {
-    0% {
-        width: 0%;
-    }
-
-    100% {
-        width: 90%;
-    }
-}
-
-@keyframes css {
-    0% {
-        width: 0%;
-    }
-
-    100% {
-        width: 90%;
-    }
-}
-
-@keyframes figma {
-    0% {
-        width: 0%;
-    }
-
-    100% {
-        width: 90%;
-    }
-}
-
-@keyframes bootstrap {
-    0% {
-        width: 0%;
-    }
-
-    100% {
-        width: 90%;
-    }
-}
-
-@keyframes webgl {
-    0% {
-        width: 0%;
-    }
-
-    100% {
-        width: 70%;
-    }
-}
-
-@keyframes javascript {
-    0% {
-        width: 0%;
-    }
-
-    100% {
-        width: 70%;
-    }
-}
-
-@keyframes react {
-    0% {
-        width: 0%;
-    }
-
-    100% {
-        width: 50%;
-    }
-}
-
-@keyframes illustrator {
-    0% {
-        width: 0%;
-    }
-
-    100% {
-        width: 50%;
-    }
-}
-
-@keyframes photoshop {
-    0% {
-        width: 0%;
-    }
-
-    100% {
-        width: 50%;
-    }
-}
 
 .nav-links {
     position: absolute;
     font-family: "Pixel";
-    color: #e5e5e5;
+    color: #acacac;
     font-size: 18px;
     font-weight: 400;
     padding: 40px;
 }
 
 .link {
-    border: solid #e5e5e5;
+    border: solid #acacac;
     padding: 8px;
     text-decoration: none;
-    color: #e5e5e5;
+    color: #acacac;
     margin: auto 70px;
 }

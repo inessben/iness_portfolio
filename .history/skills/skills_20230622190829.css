@@ -20,7 +20,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    /* overflow: hidden; */
+    /* overflow: hidden;s */
     list-style: none;
 }
 
@@ -59,7 +59,7 @@ h3 {
     width: 500px;
     right: 10px;
     margin: 60px auto;
-    color: #e5e5e5;
+    color: #fff;
     padding: 20px;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25) 0 10px 10px rgba(0, 0, 0, 0.22);
 }
@@ -98,42 +98,42 @@ h3 {
 
 .css {
     width: 90%;
-    animation: css 3s;
+    animation: html 3s;
 }
 
 .figma {
     width: 90%;
-    animation: figma 3s;
+    animation: html 3s;
 }
 
 .bootstrap {
     width: 90%;
-    animation: bootstrap 3s;
+    animation: html 3s;
 }
 
 .webgl {
     width: 70%;
-    animation: webgl 3s;
+    animation: html 3s;
 }
 
 .javascript {
     width: 70%;
-    animation: javascript 3s;
+    animation: html 3s;
 }
 
 .react {
     width: 50%;
-    animation: react 3s;
+    animation: html 3s;
 }
 
 .illustrator {
     width: 50%;
-    animation: illustrator 3s;
+    animation: html 3s;
 }
 
 .photoshop {
     width: 50%;
-    animation: photoshop 3s;
+    animation: html 3s;
 }
 
 @keyframes html {
@@ -201,7 +201,7 @@ h3 {
         width: 0%;
     }
 
-    100% {
+    50% {
         width: 50%;
     }
 }
@@ -229,16 +229,16 @@ h3 {
 .nav-links {
     position: absolute;
     font-family: "Pixel";
-    color: #e5e5e5;
+    color: #acacac;
     font-size: 18px;
     font-weight: 400;
     padding: 40px;
 }
 
 .link {
-    border: solid #e5e5e5;
+    border: solid #acacac;
     padding: 8px;
     text-decoration: none;
-    color: #e5e5e5;
+    color: #acacac;
     margin: auto 70px;
 }
