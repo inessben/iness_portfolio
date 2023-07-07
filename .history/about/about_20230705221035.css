@@ -1,0 +1,155 @@
+@font-face {
+    font-family: "Pixel";
+    src: url("/assets/fonts/pixel.woff2");
+}
+
+@font-face {
+    font-family: "Montserrat";
+    src: url("/assets/fonts/montserrat.woff2");
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html,
+body {
+    scroll-snap-type: y mandatory;
+    box-sizing: border-box;
+    /* position: fixed; */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Montserrat';
+    color: #acacac;
+}
+
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.arrow {
+    position: absolute;
+    z-index: 99;
+    top: 20px;
+    width: 50px;
+    left: 50px;
+
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100vw;
+    position: absolute;
+    z-index: 99;
+}
+
+.nav-links {
+    position: absolute;
+    font-family: "Pixel";
+    color: #acacac;
+    font-size: 18px;
+    font-weight: 400;
+    padding: 40px;
+}
+
+.link {
+    border: solid #acacac;
+    padding: 8px;
+    text-decoration: none;
+    color: #acacac;
+    margin: auto 70px;
+}
+
+section {
+    height: 100vh;
+    width: 100vw;
+    margin-left: 50px;
+
+    scroll-snap-align: start;
+    position: relative;
+}
+
+section .container {
+    /* max-width: 1360px; */
+    width: 100%;
+    height: 100%;
+    /* margin-left: 10px; */
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    justify-content: flex-start;
+}
+
+section.two .container {
+    grid-template-areas: 'content ..';
+}
+
+section.three .container {
+    grid-template-areas: '.. content';
+}
+
+section.four .container {
+    grid-template-areas: 'content ..';
+}
+
+.hero {
+    width: 100%;
+    height: 100%;
+    grid-area: content;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+}
+
+h1 {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 90px;
+    line-height: 100px;
+    font-weight: 700;
+    width: 100%;
+    height: 100px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 50px;
+    display: block;
+    width: 100%;
+    font-family: inherit;
+}
+
+h2 span {
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: 500;
+    width: 100%;
+    display: block;
+}
+
+p {
+    font-size: 30px;
+    display: block;
+    line-height: 40px;
+    width: 100%;
+    font-weight: 400;
+}
