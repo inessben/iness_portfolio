@@ -18,7 +18,7 @@ const floorTexture = textureLoader.load('textures/floor.jpg')
 floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping
 floorTexture.repeat.set(5, 5)
 // // background's texture
-const backgroundTexture = textureLoader.load('textures/background.jpeg')
+const backgroundTexture = textureLoader.load('./textures/background.jpeg')
 // particles
 const star = textureLoader.load('particles/1.png')
 
@@ -26,7 +26,7 @@ const star = textureLoader.load('particles/1.png')
 // add a GLB player
 let player = null
 gltfLoader.load(
-    'models/player.glb',
+    './assets/models/player.glb',
     (gltf) => {
         player = gltf.scene
         player.position.x = 10
@@ -51,7 +51,7 @@ gltfLoader.load(
 let bubbleSpeech
 gltfLoader.load
     (
-        'models/bubble-speech.glb',
+        './assets/models/bubble-speech.glb',
         (gltf) => {
             bubbleSpeech = gltf.scene
 
@@ -215,7 +215,7 @@ let textIndex = 0;
 // Function to show the specified text with a smooth transition
 function showText(text, position) {
     const loader = new FontLoader();
-    loader.load("fonts/press_start2_regular.json", (font) => {
+    loader.load("./assets/fonts/press_start2_regular.json", (font) => {
         // Geometry and material of the text
         const textGeometry = new TextGeometry(text, {
             font: font,

@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { GlitchPass } from 'three/addons/postprocessing/GlitchPass.js';
@@ -10,9 +9,9 @@ import { GammaCorrectionShader } from 'three/addons/shaders/GammaCorrectionShade
 // loaders
 const textureLoader = new THREE.TextureLoader()
 // background
-const backgroundTexture = textureLoader.load('textures/background.jpeg')
+const backgroundTexture = textureLoader.load('../assets/textures/background.jpeg')
 // planets
-const planetTexture = textureLoader.load('textures/rocky_planet.jpg')
+const planetTexture = textureLoader.load('../assets/textures/rocky_planet.jpg')
 planetTexture.wrapS = planetTexture.wrapT = THREE.RepeatWrapping
 planetTexture.repeat.set(2, 2)
 
@@ -48,8 +47,6 @@ function init() {
     camera.position.z = 400;
 
     scene = new THREE.Scene();
-    // scene.background = backgroundTexture
-    // // scene.fog = new THREE.Fog(0x000000, 1, 1000);
 
     object = new THREE.Object3D();
     scene.add(object);
@@ -66,7 +63,7 @@ function init() {
             (Math.random() - 0.5) * 4
         ).normalize();
         const scale = Math.random() * 50;
-        const distance = Math.random() * 4000; // Augmenter la distance entre les sphères
+        const distance = Math.random() * 4000;
         position.multiplyScalar(distance);
         mesh.position.copy(position);
         mesh.rotation.set(Math.random(), Math.random(), Math.random());
