@@ -206,7 +206,7 @@ const texts = [
     "I live in Paris \nwhere I'm studying \ndigital: \nUI design, front-\nend dev and more.",
     "I love anything to \ndo with art, such \nas photography, \nfashion and \ndecoration. <3",
     "And I keep myself \nup to date with \nlatest trends, as \nthis stimulates my \ncuriosity.",
-    "I'm a hard-worker \nwith a thirst for\nlearning and \nrigorous: for me \nevery detail counts"
+    "I'm a hard-worker \nwith a thirst for\nlearning and \nrigorous: for me \nevery detail counts."
 ];
 
 // Index of text
