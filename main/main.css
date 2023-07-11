@@ -1,16 +1,16 @@
 @font-face {
     font-family: "Pixel";
-    src: url("fonts/pixel.woff2");
+    src: url("/fonts/pixel.woff2");
 }
 
 @font-face {
     font-family: "Pixel2";
-    src: url("fonts/pixel-two.woff2");
+    src: url("/fonts/pixel-two.woff2");
 }
 
 @font-face {
     font-family: "Montserrat";
-    src: url("fonts/montserrat.woff2");
+    src: url("/fonts/montserrat.woff2");
 }
 
 ::-webkit-scrollbar {
