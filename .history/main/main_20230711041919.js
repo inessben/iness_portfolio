@@ -40,7 +40,7 @@ gltfLoader.load(
         player.traverse((child) => {
             if (child.isMesh) {
                 child.castShadow = true
-                child.receiveShadow = false
+                child.receiveShadow = true
             }
         })
 
@@ -79,13 +79,14 @@ scene.fog = new THREE.FogExp2('#b2c1cb', 0.01)
 
 // Geometry
 const count = 100000
-const positionArray = new Float32Array(count * 1000)
+const positionArray = new Float32Array(count * 3)
+const spacingFactor = 10
 
 for (let i = 0; i < count; i++) {
     // position
-    positionArray[i * 3 + 0] = (Math.random() - 0.5) * 50
-    positionArray[i * 3 + 1] = (Math.random() - 0.5) * 50
-    positionArray[i * 3 + 2] = (Math.random() - 0.5) * 50
+    positionArray[i * 3 + 0] = (Math.random() - 0.5) * spacingFactor
+    positionArray[i * 3 + 1] = (Math.random() - 0.5) * spacingFactor
+    positionArray[i * 3 + 2] = (Math.random() - 0.5) * spacingFactor
 }
 
 const particlesGeometry = new THREE.BufferGeometry()
@@ -98,7 +99,7 @@ particlesGeometry.setAttribute
 // Material
 const particlesMaterial = new THREE.PointsMaterial
     ({
-        size: 0.07,
+        size: 0.02,
         sizeAttenuation: true,
         color: new THREE.Color(0xffffff),
         alphaMap: star,
@@ -204,10 +205,10 @@ let currentTextMesh = null
 // array of texts 
 const texts = [
     "Hello, \nmy name is Iness !",
-    "I live in Paris \nwhere I'm studying \ndigital: \nUI design & front-\nend dev and more.",
+    "I live in Paris \nwhere I'm studying \ndigital, more \nUI design and \nfront-end web dev.",
     "I love anything to \ndo with art, such \nas photography, \nfashion and \ndecoration. <3 ",
-    "And I keep myself \nup to date with \nlatest trends, as \nthis stimulates my \ncuriosity.",
-    "I'm a hard-worker \nwith a thirst for\nlearning and \nrigorous: for me \nevery detail counts."
+    "And I keep myself \nup to date with \nthe latest trends, \nas this stimulates \nmy curiosity.",
+    "I'm a hard-worker \nwith a thirst for\nlearning. And I'm \nrigorous, for me \nevery detail counts."
 ]
 
 // index of text 
@@ -223,7 +224,7 @@ function showText(text, position) {
             size: 0.33,
             height: 0.1,
         })
-        const textMaterial = new THREE.MeshPhongMaterial({ color: 0xe000000 })
+        const textMaterial = new THREE.MeshPhongMaterial({ color: 0x333333 })
         //  mesh of the text
         const textMesh = new THREE.Mesh(textGeometry, textMaterial)
         textMesh.position.copy(position)
@@ -279,7 +280,7 @@ const loop = () => {
         const y = particlesGeometry.attributes.position.array[iStride + 1]
         const z = particlesGeometry.attributes.position.array[iStride + 2]
 
-        const newY = y + Math.sin(Date.now() * 0.001 + x * 3 + z * 3) * 0.004
+        const newY = y + Math.sin(Date.now() * 0.001 + x * 3 + z * 3) * 0.001
         particlesGeometry.attributes.position.array[iStride + 1] = newY
     }
     particlesGeometry.attributes.position.needsUpdate = true

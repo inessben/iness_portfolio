@@ -62,10 +62,10 @@ gltfLoader.load
                 child.receiveShadow = true
             })
 
-            bubbleSpeech.scale.set(5, 5, 5)
+            bubbleSpeech.scale.set(5.4, 5.4, 5.4)
             bubbleSpeech.position.x = 10
             bubbleSpeech.position.y = 4
-            bubbleSpeech.position.z = -6
+            bubbleSpeech.position.z = -6.4
             bubbleSpeech.rotation.y = - Math.PI * 0.5
             scene.add(bubbleSpeech)
         }
@@ -204,7 +204,7 @@ let currentTextMesh = null
 // array of texts 
 const texts = [
     "Hello, \nmy name is Iness !",
-    "I live in Paris \nwhere I'm studying \ndigital: \nUI design & front-\nend dev and more.",
+    "I live in Paris \nwhere I'm studying \ndigital, \nUI design, front-end \nweb dev and more.",
     "I love anything to \ndo with art, such \nas photography, \nfashion and \ndecoration. <3 ",
     "And I keep myself \nup to date with \nlatest trends, as \nthis stimulates my \ncuriosity.",
     "I'm a hard-worker \nwith a thirst for\nlearning and \nrigorous: for me \nevery detail counts."

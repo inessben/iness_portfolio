@@ -20,9 +20,19 @@ floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping
 floorTexture.repeat.set(5, 5)
 // // background's texture
 const backgroundTexture = textureLoader.load('./assets/textures/background.jpeg')
-// particles
-const star = textureLoader.load('./assets/particles/1.png')
-
+// // planet's texture
+// // rocky planet texture
+const rockyPlanetTexture = textureLoader.load('./assets/textures/rocky_planet.jpg')
+rockyPlanetTexture.wrapS = rockyPlanetTexture.wrapT = THREE.RepeatWrapping
+rockyPlanetTexture.repeat.set(2, 2)
+// // white planet texture
+const whitePlanetTexture = textureLoader.load('./assets/textures/white_planet.jpg')
+whitePlanetTexture.wrapS = whitePlanetTexture.wrapT = THREE.RepeatWrapping
+whitePlanetTexture.repeat.set(2, 2)
+// // metal planet texture
+const pinkPlanetTexture = textureLoader.load('./assets/textures/pink_planet.jpg')
+pinkPlanetTexture.wrapS = pinkPlanetTexture.wrapT = THREE.RepeatWrapping
+pinkPlanetTexture.repeat.set(2, 2)
 
 // add a GLB player
 let player = null
@@ -35,12 +45,12 @@ gltfLoader.load(
         player.rotation.y = - Math.PI * 0.5
 
 
-        player.scale.set(10, 10, 10)
+        player.scale.set(10.5, 10.5, 10.5)
 
         player.traverse((child) => {
             if (child.isMesh) {
                 child.castShadow = true
-                child.receiveShadow = false
+                child.receiveShadow = true
             }
         })
 
@@ -76,41 +86,6 @@ const scene = new THREE.Scene()
 scene.background = backgroundTexture
 scene.fog = new THREE.FogExp2('#b2c1cb', 0.01)
 
-
-// Geometry
-const count = 100000
-const positionArray = new Float32Array(count * 1000)
-
-for (let i = 0; i < count; i++) {
-    // position
-    positionArray[i * 3 + 0] = (Math.random() - 0.5) * 50
-    positionArray[i * 3 + 1] = (Math.random() - 0.5) * 50
-    positionArray[i * 3 + 2] = (Math.random() - 0.5) * 50
-}
-
-const particlesGeometry = new THREE.BufferGeometry()
-particlesGeometry.setAttribute
-    (
-        'position',
-        new THREE.BufferAttribute(positionArray, 3)
-    )
-
-// Material
-const particlesMaterial = new THREE.PointsMaterial
-    ({
-        size: 0.07,
-        sizeAttenuation: true,
-        color: new THREE.Color(0xffffff),
-        alphaMap: star,
-        transparent: true,
-        depthWrite: false,
-        blending: THREE.AdditiveBlending
-    })
-
-// Particles
-const particles = new THREE.Points(particlesGeometry, particlesMaterial)
-scene.add(particles)
-
 // Sizes
 const sizes = {}
 sizes.width = window.innerWidth
@@ -132,10 +107,10 @@ window.addEventListener('resize', () => {
 })
 
 // Add the camera
-const camera = new THREE.PerspectiveCamera(30, sizes.width / sizes.height)
-camera.position.x = -24
-camera.position.y = 2
-camera.position.z = 10
+const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height)
+camera.position.x = -22
+camera.position.y = 4
+camera.position.z = 4
 scene.add(camera)
 
 // Add some lights
@@ -180,9 +155,6 @@ controls.enableDamping = true
 
 // Add the decor
 // 
-
-// add some planets 
-
 // Floor
 let floor = new THREE.Mesh(
     new THREE.BoxGeometry(500, 1, 500),
@@ -204,10 +176,10 @@ let currentTextMesh = null
 // array of texts 
 const texts = [
     "Hello, \nmy name is Iness !",
-    "I live in Paris \nwhere I'm studying \ndigital: \nUI design & front-\nend dev and more.",
+    "I live in Paris \nwhere I'm studying \ndigital, more \nUI design and \nfront-end web dev.",
     "I love anything to \ndo with art, such \nas photography, \nfashion and \ndecoration. <3 ",
-    "And I keep myself \nup to date with \nlatest trends, as \nthis stimulates my \ncuriosity.",
-    "I'm a hard-worker \nwith a thirst for\nlearning and \nrigorous: for me \nevery detail counts."
+    "And I keep myself \nup to date with \nthe latest trends, \nas this stimulates \nmy curiosity.",
+    "I'm a hard-worker \nwith a thirst for\nlearning. And I'm \nrigorous, for me \nevery detail counts."
 ]
 
 // index of text 
@@ -223,7 +195,7 @@ function showText(text, position) {
             size: 0.33,
             height: 0.1,
         })
-        const textMaterial = new THREE.MeshPhongMaterial({ color: 0xe000000 })
+        const textMaterial = new THREE.MeshPhongMaterial({ color: 0x333333 })
         //  mesh of the text
         const textMesh = new THREE.Mesh(textGeometry, textMaterial)
         textMesh.position.copy(position)
@@ -270,20 +242,6 @@ showText(initialText, initialPosition)
 // loop
 const loop = () => {
     window.requestAnimationFrame(loop)
-
-    // Update particles
-    for (let i = 0; i < count; i++) {
-        const iStride = i * 3
-
-        const x = particlesGeometry.attributes.position.array[iStride + 0]
-        const y = particlesGeometry.attributes.position.array[iStride + 1]
-        const z = particlesGeometry.attributes.position.array[iStride + 2]
-
-        const newY = y + Math.sin(Date.now() * 0.001 + x * 3 + z * 3) * 0.004
-        particlesGeometry.attributes.position.array[iStride + 1] = newY
-    }
-    particlesGeometry.attributes.position.needsUpdate = true
-
 
     // Render
     renderer.render(scene, camera)

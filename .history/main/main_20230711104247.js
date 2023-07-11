@@ -79,7 +79,7 @@ scene.fog = new THREE.FogExp2('#b2c1cb', 0.01)
 
 // Geometry
 const count = 100000
-const positionArray = new Float32Array(count * 1000)
+const positionArray = new Float32Array(count * 100)
 
 for (let i = 0; i < count; i++) {
     // position
@@ -204,10 +204,10 @@ let currentTextMesh = null
 // array of texts 
 const texts = [
     "Hello, \nmy name is Iness !",
-    "I live in Paris \nwhere I'm studying \ndigital: \nUI design & front-\nend dev and more.",
+    "I live in Paris \nwhere I'm studying \ndigital, more \nUI design and \nfront-end web dev.",
     "I love anything to \ndo with art, such \nas photography, \nfashion and \ndecoration. <3 ",
-    "And I keep myself \nup to date with \nlatest trends, as \nthis stimulates my \ncuriosity.",
-    "I'm a hard-worker \nwith a thirst for\nlearning and \nrigorous: for me \nevery detail counts."
+    "And I keep myself \nup to date with \nthe latest trends, \nas this stimulates \nmy curiosity.",
+    "I'm a hard-worker \nwith a thirst for\nlearning. And I'm \nrigorous, for me \nevery detail counts."
 ]
 
 // index of text 
