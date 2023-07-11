@@ -130,22 +130,34 @@ window.addEventListener('resize', () => {
 })
 
 // Add the camera
-const camera = new THREE.PerspectiveCamera(32, sizes.width / sizes.height, 1, 200)
+const camera = new THREE.PerspectiveCamera(40, sizes.width / sizes.height)
 camera.position.x = -24
 camera.position.z = 10
 scene.add(camera)
 
-// Add some Lights
-// Purple ambient light
+// Add some lights
+// // Add a white rect light
+const rectAreaLight = new THREE.RectAreaLight(0xFFFFFF, 2, 1, 2)
+rectAreaLight.position.x = 2
+rectAreaLight.position.y = -0.5
+rectAreaLight.position.z = -6.5
+rectAreaLight.lookAt(new THREE.Vector3())
+scene.add(rectAreaLight)
+
+// // Add a purple ambient light
 const ambientLight = new THREE.AmbientLight(0xAD41FF, 1.4)
 scene.add(ambientLight)
 
-// Directionnal light
-const directionalLight = new THREE.DirectionalLight(0xFFFFFF, 3)
+// // Add a white ambient light
+const whiteAmbientLight = new THREE.AmbientLight(0xED8FB6, 0.3)
+scene.add(whiteAmbientLight)
+
+// // // add a grey directionnal light
+const directionalLight = new THREE.DirectionalLight(0xFFFFFF, 0.4)
 directionalLight.castShadow = true
-directionalLight.position.x = -1
+directionalLight.position.x = 1
 directionalLight.position.y = 2
-directionalLight.position.z = -3
+directionalLight.position.z = 3
 scene.add(directionalLight)
 
 // Renderer
