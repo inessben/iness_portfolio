@@ -178,15 +178,12 @@ let floor = new THREE.Mesh(
     new THREE.MeshStandardMaterial({
         color: 0X222222,
         normalMap: floorTexture,
-
         normalScale: new THREE.Vector2(0.3, 0.3)
     })
 )
 floor.position.x = 1
 floor.rotation.y = - Math.PI * 1
 floor.position.y = -10
-floor.receiveShadow = true
-
 scene.add(floor)
 
 // Add some texts

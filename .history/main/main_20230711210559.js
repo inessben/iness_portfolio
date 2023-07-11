@@ -142,15 +142,12 @@ scene.add(ambientLight)
 
 // Directionnal light
 const directionalLight = new THREE.DirectionalLight(0xFFFFFF, 3)
-directionalLight.position.x = -5
-directionalLight.position.y = 10
-directionalLight.position.z = -15
 directionalLight.castShadow = true
-directionalLight.shadow.camera.top = 50
-directionalLight.shadow.camera.right = 50
-directionalLight.shadow.camera.bottom = - 50
-directionalLight.shadow.camera.left = - 50
+directionalLight.position.x = -1
+directionalLight.position.y = 2
+directionalLight.position.z = -3
 scene.add(directionalLight)
+
 // Renderer
 const renderer = new THREE.WebGLRenderer({ antialias: true })
 renderer.outputEncoding = THREE.sRGBEncoding
@@ -178,15 +175,12 @@ let floor = new THREE.Mesh(
     new THREE.MeshStandardMaterial({
         color: 0X222222,
         normalMap: floorTexture,
-
         normalScale: new THREE.Vector2(0.3, 0.3)
     })
 )
 floor.position.x = 1
 floor.rotation.y = - Math.PI * 1
 floor.position.y = -10
-floor.receiveShadow = true
-
 scene.add(floor)
 
 // Add some texts
