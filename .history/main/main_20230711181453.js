@@ -14,19 +14,19 @@ const textureLoader = new THREE.TextureLoader()
 
 // // add some textures
 // floor's texture
-const floorTexture = textureLoader.load('../assets/textures/floor.jpg')
+const floorTexture = textureLoader.load('./assets/textures/floor.jpg')
 floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping
 floorTexture.repeat.set(5, 5)
 // // background's texture
-const backgroundTexture = textureLoader.load('../assets/textures/background.jpeg')
+const backgroundTexture = textureLoader.load('./assets/textures/background.jpeg')
 // particles
-const star = textureLoader.load('../assets/particles/1.png')
+const star = textureLoader.load('./assets/particles/1.png')
 
 
 // add a GLB player
 let player = null
 gltfLoader.load(
-    '../assets/models/player.glb',
+    './assets/models/player.glb',
     (gltf) => {
         player = gltf.scene
         player.position.x = 10
