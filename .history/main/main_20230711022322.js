@@ -4,8 +4,8 @@ import './main.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
-import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js'
-import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js'
+import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
+import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 
 // // add loaders to gltf
 const gltfLoader = new GLTFLoader()
@@ -41,11 +41,11 @@ gltfLoader.load(
     (gltf) => {
         player = gltf.scene
         player.position.x = 10
-        player.position.y = -9
+        player.position.y = -10
         player.rotation.y = - Math.PI * 0.5
 
 
-        player.scale.set(10.5, 10.5, 10.5)
+        player.scale.set(10, 10, 10)
 
         player.traverse((child) => {
             if (child.isMesh) {
@@ -58,28 +58,28 @@ gltfLoader.load(
     }
 )
 
-// add a GLB speech bubble
-let bubbleSpeech
-gltfLoader.load
-    (
-        './assets/models/bubble-speech.glb',
-        (gltf) => {
-            bubbleSpeech = gltf.scene
 
-            bubbleSpeech.traverse((child) => {
-                if (child.isMesh)
-                    child.castShadow = true
-                child.receiveShadow = true
-            })
+// // let bubbleSpeech
+// // gltfLoader.load
+// //     (
+// //         './assets/models/bubble-speech.glb',
+// //         (gltf) => {
+// //             bubbleSpeech = gltf.scene
 
-            bubbleSpeech.scale.set(5, 5, 5)
-            bubbleSpeech.position.x = 10
-            bubbleSpeech.position.y = 4
-            bubbleSpeech.position.z = -6
-            bubbleSpeech.rotation.y = - Math.PI * 0.5
-            scene.add(bubbleSpeech)
-        }
-    )
+// //             bubbleSpeech.traverse((child) => {
+// //                 if (child.isMesh)
+// //                     child.castShadow = true
+// //                 child.receiveShadow = true
+// //             })
+
+// //             bubbleSpeech.scale.set(0.65, 0.65, 0.65)
+// //             bubbleSpeech.position.x = -0.65
+// //             bubbleSpeech.position.y = -7.55
+// //             bubbleSpeech.position.z = -0.08
+// //             bubbleSpeech.rotation.y = -0.5
+// //             scene.add(bubbleSpeech)
+// //         }
+// //     )
 
 // // Add our webgl scene
 const scene = new THREE.Scene()
@@ -122,15 +122,15 @@ rectAreaLight.lookAt(new THREE.Vector3())
 scene.add(rectAreaLight)
 
 // // Add a purple ambient light
-const ambientLight = new THREE.AmbientLight(0xAD41FF, 1.4)
+const ambientLight = new THREE.AmbientLight(0xAD41FF, 1.2)
 scene.add(ambientLight)
 
 // // Add a white ambient light
-const whiteAmbientLight = new THREE.AmbientLight(0xED8FB6, 0.3)
+const whiteAmbientLight = new THREE.AmbientLight(0xFFFFFF, 0.3)
 scene.add(whiteAmbientLight)
 
 // // // add a grey directionnal light
-const directionalLight = new THREE.DirectionalLight(0xFFFFFF, 0.4)
+const directionalLight = new THREE.DirectionalLight(0xED8FB6, 1)
 directionalLight.castShadow = true
 directionalLight.position.x = 1
 directionalLight.position.y = 2
@@ -167,75 +167,77 @@ floor.rotation.y = - Math.PI * 1
 floor.position.y = -10
 scene.add(floor)
 
-
 // // // Add some texts
 // Variable refers to the actually text
-let currentTextMesh = null
+let currentTextMesh = null;
 
 // array of texts 
 const texts = [
-    "Hello, \nmy name is Iness !",
-    "I live in Paris \nwhere I'm studying \ndigital, more \nUI design and \nfront-end web dev.",
-    "I love anything to \ndo with art, such \nas photography, \nfashion and \ndecoration. <3 ",
-    "And I keep myself \nup to date with \nthe latest trends, \nas this stimulates \nmy curiosity.",
-    "I'm a hard-worker \nwith a thirst for\nlearning. And I'm \nrigorous, for me \nevery detail counts."
-]
+    "Hello, my name is Iness !",
+    "I live in Paris where I'm studying digital,\npassionate about UI design and front-end development.",
+    "I love anything to do with art,\nsuch as fashion, photography and decoration.",
+    "And I keep myself up to date with the latest trends,\nas this stimulates my curiosity.",
+    "I'm a hard-working person with a thirst for learning,\norganized and rigorous, for me, every detail counts."
+];
 
 // index of text 
-let textIndex = 0
+let textIndex = 0;
 
-// Function to show the specify text 
+// Function to aff afficher le texte spécifié
 function showText(text, position) {
-    const loader = new FontLoader()
+    const loader = new FontLoader();
     loader.load('./assets/fonts/press_start2_regular.json', (font) => {
-        // geometry and material of the text
+        // Création de la géométrie et du matériau du texte
         const textGeometry = new TextGeometry(text, {
             font: font,
-            size: 0.33,
+            size: 0.5,
             height: 0.1,
-        })
-        const textMaterial = new THREE.MeshPhongMaterial({ color: 0x333333 })
-        //  mesh of the text
-        const textMesh = new THREE.Mesh(textGeometry, textMaterial)
-        textMesh.position.copy(position)
-        textMesh.rotation.y = -Math.PI * 0.5
+        });
+        const textMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff });
+        // Création du mesh du texte
+        const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+        textMesh.position.copy(position);
+        textMesh.rotation.y = -Math.PI * 0.5;
 
-        // delete the past text 
+        // Suppression du texte précédent s'il existe
         if (currentTextMesh) {
-            scene.remove(currentTextMesh)
+            scene.remove(currentTextMesh);
         }
 
-        // Add new text to the scene
-        scene.add(textMesh)
+        // Ajout du nouveau texte à la scène
+        scene.add(textMesh);
 
-        // Update to the refers text
-        currentTextMesh = textMesh
-    })
+        // Mise à jour de la référence du texte actuel
+        currentTextMesh = textMesh;
+    });
 }
 
-// Function with the spacebar
+// Fonction pour gérer l'événement de pression sur la barre d'espace
 function handleSpacebar(event) {
     if (event.code === 'Space') {
-        textIndex++
+        // Incrément de l'indice du texte
+        textIndex++;
 
+        // Vérification si l'indice dépasse la taille du tableau des textes
         if (textIndex >= texts.length) {
-            textIndex = 0
+            // Réinitialisation de l'indice
+            textIndex = 0;
         }
 
-        // Show the next text
-        const text = texts[textIndex]
-        const position = new THREE.Vector3(9, 6.5, -13)
-        showText(text, position)
+        // Affichage du texte suivant
+        const text = texts[textIndex];
+        const position = new THREE.Vector3(7, -8, -18); // Position de départ pour tous les textes
+        showText(text, position);
     }
 }
 
-// Add the add event listener
-window.addEventListener('keydown', handleSpacebar)
+// Ajout de l'écouteur d'événement pour la barre d'espace
+window.addEventListener('keydown', handleSpacebar);
 
-// show the first text of the page
-const initialText = texts[0]
-const initialPosition = new THREE.Vector3(9, 6.5, -13)
-showText(initialText, initialPosition)
+// Affichage du premier texte au chargement de la page
+const initialText = texts[0];
+const initialPosition = new THREE.Vector3(7, -8, -18); // Position de départ pour tous les textes
+showText(initialText, initialPosition);
 
 
 // loop

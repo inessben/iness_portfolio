@@ -126,11 +126,11 @@ const ambientLight = new THREE.AmbientLight(0xAD41FF, 1.4)
 scene.add(ambientLight)
 
 // // Add a white ambient light
-const whiteAmbientLight = new THREE.AmbientLight(0xED8FB6, 0.3)
+const whiteAmbientLight = new THREE.AmbientLight(0xFFFFFF, 0.3)
 scene.add(whiteAmbientLight)
 
 // // // add a grey directionnal light
-const directionalLight = new THREE.DirectionalLight(0xFFFFFF, 0.4)
+const directionalLight = new THREE.DirectionalLight(0xED8FB6, 0.4)
 directionalLight.castShadow = true
 directionalLight.position.x = 1
 directionalLight.position.y = 2
@@ -167,6 +167,44 @@ floor.rotation.y = - Math.PI * 1
 floor.position.y = -10
 scene.add(floor)
 
+init()
+animate()
+
+
+function init() {
+    renderer = new THREE.WebGLRenderer();
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
+    camera.position.z = 400;
+
+    scene = new THREE.Scene();
+
+    object = new THREE.Object3D();
+    scene.add(object);
+
+    const geometry = new THREE.SphereGeometry(1, 32, 32);
+
+    for (let i = 0; i < 100; i++) {
+        const material = new THREE.MeshPhongMaterial({ color: 0xffffff * Math.random(), flatShading: true, map: planetTexture });
+
+        const mesh = new THREE.Mesh(geometry, material);
+        const position = new THREE.Vector3(
+            (Math.random() - 0.5) * 4,
+            (Math.random() - 0.5) * 4,
+            (Math.random() - 0.5) * 4
+        ).normalize();
+        const scale = Math.random() * 50;
+        const distance = Math.random() * 4000;
+        position.multiplyScalar(distance);
+        mesh.position.copy(position);
+        mesh.rotation.set(Math.random(), Math.random(), Math.random());
+        mesh.scale.set(scale, scale, scale);
+        object.add(mesh);
+    }
+}
 
 // // // Add some texts
 // Variable refers to the actually text
@@ -176,7 +214,7 @@ let currentTextMesh = null
 const texts = [
     "Hello, \nmy name is Iness !",
     "I live in Paris \nwhere I'm studying \ndigital, more \nUI design and \nfront-end web dev.",
-    "I love anything to \ndo with art, such \nas photography, \nfashion and \ndecoration. <3 ",
+    "I love anything to \ndo with art, such \nas photography, \nfashion and \ndecoration.",
     "And I keep myself \nup to date with \nthe latest trends, \nas this stimulates \nmy curiosity.",
     "I'm a hard-worker \nwith a thirst for\nlearning. And I'm \nrigorous, for me \nevery detail counts."
 ]
@@ -224,7 +262,7 @@ function handleSpacebar(event) {
 
         // Show the next text
         const text = texts[textIndex]
-        const position = new THREE.Vector3(9, 6.5, -13)
+        const position = new THREE.Vector3(9, 6, -13)
         showText(text, position)
     }
 }

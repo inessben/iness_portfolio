@@ -176,7 +176,7 @@ let currentTextMesh = null
 const texts = [
     "Hello, \nmy name is Iness !",
     "I live in Paris \nwhere I'm studying \ndigital, more \nUI design and \nfront-end web dev.",
-    "I love anything to \ndo with art, such \nas photography, \nfashion and \ndecoration. <3 ",
+    "I love anything to \ndo with art, such \nas photography, \nfashion and \ndecoration.",
     "And I keep myself \nup to date with \nthe latest trends, \nas this stimulates \nmy curiosity.",
     "I'm a hard-worker \nwith a thirst for\nlearning. And I'm \nrigorous, for me \nevery detail counts."
 ]

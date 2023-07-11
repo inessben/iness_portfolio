@@ -93,25 +93,15 @@ main {
 }
 
 .more {
-    position: absolute;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    bottom: 0px;
-    /* margin-right: 50%; */
-    width: 100%;
-    z-index: 99;
-}
-
-.text {
     z-index: 99;
     margin: 10px;
-    color: #787878;
-    opacity: 0.7;
-    font-family: 'Pixel2';
+}
+
+section.more {
+    bottom: 10%;
+    color: #b3b3b3;
+    font-family: 'Pixel';
     font-size: 18px;
-    margin-left: 35%;
     display: block;
     line-height: 40px;
     width: 100%;
