@@ -196,7 +196,7 @@ let isTransitioning = false;
 
 // Array of texts
 const texts = [
-    "Hello, \nmy name is Iness, \nand I'm 19 \nYears old",
+    "Hello, \nmy name is Iness!",
     "I live in Paris \nwhere I'm studying \ndigital: \nUI design, front-\nend dev and more.",
     "I love anything to \ndo with art, such \nas photography, \nfashion and \ndecoration. <3",
     "And I keep myself \nup to date with \nlatest trends, as \nthis stimulates my \ncuriosity.",
