@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { GlitchPass } from 'three/addons/postprocessing/GlitchPass.js';
@@ -48,8 +47,6 @@ function init() {
     camera.position.z = 400;
 
     scene = new THREE.Scene();
-    // scene.background = backgroundTexture
-    // // scene.fog = new THREE.Fog(0x000000, 1, 1000);
 
     object = new THREE.Object3D();
     scene.add(object);
@@ -66,7 +63,7 @@ function init() {
             (Math.random() - 0.5) * 4
         ).normalize();
         const scale = Math.random() * 50;
-        const distance = Math.random() * 4000; // Augmenter la distance entre les sphères
+        const distance = Math.random() * 4000;
         position.multiplyScalar(distance);
         mesh.position.copy(position);
         mesh.rotation.set(Math.random(), Math.random(), Math.random());
