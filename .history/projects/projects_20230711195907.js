@@ -72,7 +72,7 @@ function init() {
     }
 
 
-    light = new THREE.DirectionalLight(0x222222);
+    light = new THREE.DirectionalLight(0x0a0a0a);
     light.position.set(1, 1, 1);
     scene.add(light);
 
