@@ -47,8 +47,6 @@ function init() {
     camera.position.z = 400;
 
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x222222);
-
 
     object = new THREE.Object3D();
     scene.add(object);
@@ -82,9 +80,7 @@ function init() {
     composer.addPass(new RenderPass(scene, camera));
 
     glitchPass = new GlitchPass();
-    glitchPass.goWild = 0.1;
     composer.addPass(glitchPass);
-
 
     const outputPass = new ShaderPass(GammaCorrectionShader);
     composer.addPass(outputPass);
@@ -115,4 +111,6 @@ function animate() {
 
 // Appel de la fonction de démarrage au chargement de la page
 startButtonClick();
+
+
 
