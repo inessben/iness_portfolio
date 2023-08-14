@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 // import { GlitchPass } from 'three/addons/postprocessing/GlitchPass.js';
@@ -18,7 +17,7 @@ planetTexture.repeat.set(2, 2)
 let camera, scene, renderer, composer;
 let object, light;
 
-// let glitchPass;
+let glitchPass;
 
 // Fonction appelée lorsque le bouton de démarrage est cliqué
 function startButtonClick() {
@@ -30,10 +29,10 @@ function startButtonClick() {
 }
 
 // Fonction appelée lors de la modification de l'option wildGlitch
-// function updateOptions() {
-// const wildGlitch = document.getElementById('wildGlitch');
-// glitchPass.goWild = wildGlitch.checked;
-// }
+function updateOptions() {
+    // const wildGlitch = document.getElementById('wildGlitch');
+    // glitchPass.goWild = wildGlitch.checked;
+}
 
 // Initialisation de la scène
 function init() {
@@ -46,6 +45,7 @@ function init() {
     camera.position.z = 400;
 
     scene = new THREE.Scene();
+
     object = new THREE.Object3D();
     scene.add(object);
 
@@ -61,7 +61,7 @@ function init() {
             (Math.random() - 0.5) * 4
         ).normalize();
         const scale = Math.random() * 50;
-        const distance = Math.random() * 4000; // Augmenter la distance entre les sphères
+        const distance = Math.random() * 4000;
         position.multiplyScalar(distance);
         mesh.position.copy(position);
         mesh.rotation.set(Math.random(), Math.random(), Math.random());
@@ -109,3 +109,6 @@ function animate() {
 
 // Appel de la fonction de démarrage au chargement de la page
 startButtonClick();
+
+
+

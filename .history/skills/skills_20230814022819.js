@@ -2,13 +2,14 @@ import * as THREE from 'three';
 
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-// import { GlitchPass } from 'three/addons/postprocessing/GlitchPass.js';
 import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 import { GammaCorrectionShader } from 'three/addons/shaders/GammaCorrectionShader.js';
 
 
 // loaders
 const textureLoader = new THREE.TextureLoader()
+// background
+const backgroundTexture = textureLoader.load('textures/background.jpeg')
 // planets
 const planetTexture = textureLoader.load('textures/rocky_planet.jpg')
 planetTexture.wrapS = planetTexture.wrapT = THREE.RepeatWrapping
@@ -18,22 +19,14 @@ planetTexture.repeat.set(2, 2)
 let camera, scene, renderer, composer;
 let object, light;
 
-// let glitchPass;
-
 // Fonction appelée lorsque le bouton de démarrage est cliqué
 function startButtonClick() {
     const overlay = document.getElementById('overlay');
     overlay.remove();
 
-    init(); // Initialisation de la scène
-    animate(); // Démarrage de l'animation
+    init();
+    animate();
 }
-
-// Fonction appelée lors de la modification de l'option wildGlitch
-// function updateOptions() {
-// const wildGlitch = document.getElementById('wildGlitch');
-// glitchPass.goWild = wildGlitch.checked;
-// }
 
 // Initialisation de la scène
 function init() {
@@ -46,6 +39,7 @@ function init() {
     camera.position.z = 400;
 
     scene = new THREE.Scene();
+
     object = new THREE.Object3D();
     scene.add(object);
 
@@ -76,9 +70,6 @@ function init() {
 
     composer = new EffectComposer(renderer);
     composer.addPass(new RenderPass(scene, camera));
-
-    // glitchPass = new GlitchPass();
-    // composer.addPass(glitchPass);
 
     const outputPass = new ShaderPass(GammaCorrectionShader);
     composer.addPass(outputPass);
