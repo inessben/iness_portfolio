@@ -304,10 +304,10 @@ const loop = () => {
     }
     particlesGeometry.attributes.position.needsUpdate = true
 
+    controls.update()
+
     // Render
     renderer.render(scene, camera)
-
-    controls.update()
 }
 
 loop()
