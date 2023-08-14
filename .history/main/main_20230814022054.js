@@ -72,7 +72,7 @@ gltfLoader.load
 // // Add our webgl scene
 const scene = new THREE.Scene()
 scene.background = backgroundTexture
-// scene.fog = new THREE.FogExp2('#b2c1cb', 0.01)
+scene.fog = new THREE.FogExp2('#b2c1cb', 0.01)
 
 
 // Geometry
