@@ -176,7 +176,7 @@ controls.enableDamping = true
 let floor = new THREE.Mesh(
     new THREE.BoxGeometry(500, 1, 500),
     new THREE.MeshStandardMaterial({
-        color: 0Xbebebe,
+        color: 0X999999,
         normalMap: floorTexture,
 
         normalScale: new THREE.Vector2(0.3, 0.3)
