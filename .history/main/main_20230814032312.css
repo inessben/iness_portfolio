@@ -106,11 +106,10 @@ main {
 .text {
     z-index: 99;
     margin: 10px;
-    color: #b9b9b9;
+    color: #282828;
     opacity: 0.7;
     font-family: 'Pixel2';
     font-size: 18px;
-    text-decoration: solid;
     margin-left: 35%;
     display: block;
     line-height: 40px;
