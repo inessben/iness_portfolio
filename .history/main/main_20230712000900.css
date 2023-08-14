@@ -106,7 +106,7 @@ main {
 .text {
     z-index: 99;
     margin: 10px;
-    color: #282828;
+    color: #cecece;
     opacity: 0.7;
     font-family: 'Pixel2';
     font-size: 18px;
