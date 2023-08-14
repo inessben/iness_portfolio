@@ -32,8 +32,8 @@ function startButtonClick() {
 
 // Fonction appelée lors de la modification de l'option wildGlitch
 function updateOptions() {
-    // const wildGlitch = document.getElementById('wildGlitch');
-    // glitchPass.goWild = wildGlitch.checked;
+    const wildGlitch = document.getElementById('wildGlitch');
+    glitchPass.goWild = wildGlitch.checked;
 }
 
 // Initialisation de la scène
