@@ -291,6 +291,7 @@ showText(initialText, initialPosition);
 const loop = () => {
     window.requestAnimationFrame(loop)
 
+
     // Update particles
     for (let i = 0; i < count; i++) {
         const iStride = i * 3
