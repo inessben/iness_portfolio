@@ -72,7 +72,7 @@ gltfLoader.load
 // // Add our webgl scene
 const scene = new THREE.Scene()
 scene.background = backgroundTexture
-scene.fog = new THREE.FogExp2('#b2c1cb', 0.01)
+scene.fog = new THREE.FogExp2('#b2c1cb', 0.001)
 
 
 // Geometry
@@ -176,7 +176,7 @@ controls.enableDamping = true
 let floor = new THREE.Mesh(
     new THREE.BoxGeometry(500, 1, 500),
     new THREE.MeshStandardMaterial({
-        color: 0X000000,
+        color: 0X651B60,
         normalMap: floorTexture,
 
         normalScale: new THREE.Vector2(0.3, 0.3)
@@ -306,9 +306,6 @@ const loop = () => {
         particlesGeometry.attributes.position.array[iStride + 1] = newY
     }
     particlesGeometry.attributes.position.needsUpdate = true
-
-    controls.update()
-
     // Render
     renderer.render(scene, camera)
 }
