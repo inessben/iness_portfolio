@@ -301,20 +301,3 @@ h3 {
 }
 
 }
-
-/* phone size */
-@media (max-width: 405px) 
-{
-    .link
-{
-    font-size: 10px;
-    margin: auto 20px;
-
-}
-
-.skills h1 {
-    
-    font-size: 26px;
-}
-
-}

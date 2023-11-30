@@ -145,33 +145,34 @@ footer.footer .icon {
 }
 
 /* tablet size */
-@media (max-width: 750px)
+@media (max-height: 750px)
 {
     .link
 {
+    color: green;
         font-size: 18px;
         margin: auto 20px;
 
 }
 
 .text{
-    font-size: 16px;
+    font-size: 18px;
+    /* padding: 0; */
 }
 }
 
 /* phone size */
-@media (max-width: 600px) 
+@media (max-height: 600px) 
 {
     .link
 {
-    font-size: 10px;
-    margin: auto 20px;
+        font-size: 10px;
+        margin: auto 20px;
 
 }
 
 .text
 {
-    display: none;
     font-size: 8px;
     border: none;
     padding: 0;

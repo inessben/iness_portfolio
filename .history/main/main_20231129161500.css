@@ -145,27 +145,30 @@ footer.footer .icon {
 }
 
 /* tablet size */
-@media (max-width: 750px)
+@media (max-height: 750px)
 {
     .link
 {
+    color: green;
         font-size: 18px;
         margin: auto 20px;
 
 }
 
 .text{
-    font-size: 16px;
+    font-size: 18px;
+    /* padding: 0; */
 }
 }
 
 /* phone size */
-@media (max-width: 600px) 
+@media (min-height: 606px) and (max-height: 750px)
 {
     .link
 {
-    font-size: 10px;
-    margin: auto 20px;
+    color: red;
+        font-size: 10px;
+        margin: auto 20px;
 
 }
 

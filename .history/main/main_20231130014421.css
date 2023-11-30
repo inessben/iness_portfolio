@@ -149,21 +149,24 @@ footer.footer .icon {
 {
     .link
 {
+    color: green;
         font-size: 18px;
         margin: auto 20px;
 
 }
 
 .text{
-    font-size: 16px;
+    font-size: 18px;
+    /* padding: 0; */
 }
 }
 
 /* phone size */
-@media (max-width: 600px) 
+@media (max-width: 610px) 
 {
     .link
 {
+    color: red;
     font-size: 10px;
     margin: auto 20px;
 

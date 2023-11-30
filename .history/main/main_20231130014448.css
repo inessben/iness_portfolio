@@ -149,6 +149,7 @@ footer.footer .icon {
 {
     .link
 {
+    color: green;
         font-size: 18px;
         margin: auto 20px;
 
@@ -156,6 +157,7 @@ footer.footer .icon {
 
 .text{
     font-size: 16px;
+    /* padding: 0; */
 }
 }
 
@@ -164,6 +166,7 @@ footer.footer .icon {
 {
     .link
 {
+    color: red;
     font-size: 10px;
     margin: auto 20px;
 
