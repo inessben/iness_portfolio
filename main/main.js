@@ -5,6 +5,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js'
+import { color } from 'three/examples/jsm/nodes/Nodes.js'
 
 // // add loaders to gltf
 const gltfLoader = new GLTFLoader()
@@ -47,31 +48,31 @@ gltfLoader.load(
 )
 
 // add a GLB speech bubble
-let bubbleSpeech
-gltfLoader.load
-    (
-        'models/bubble-speech.glb',
-        (gltf) => {
-            bubbleSpeech = gltf.scene
+// let bubbleSpeech
+// gltfLoader.load
+//     (
+//         'models/bubble-speech.glb',
+//         (gltf) => {
+//             bubbleSpeech = gltf.scene
 
-            bubbleSpeech.traverse((child) => {
-                if (child.isMesh)
-                    child.castShadow = true
-                child.receiveShadow = false
-            })
+//             bubbleSpeech.traverse((child) => {
+//                 if (child.isMesh)
+//                     child.castShadow = true
+//                 child.receiveShadow = false
+//             })
 
-            bubbleSpeech.scale.set(5, 5, 5)
-            bubbleSpeech.position.x = 10
-            bubbleSpeech.position.y = 4
-            bubbleSpeech.position.z = -6
-            bubbleSpeech.rotation.y = - Math.PI * 0.5
-            scene.add(bubbleSpeech)
-        }
-    )
+//             bubbleSpeech.scale.set(5, 5, 5)
+//             bubbleSpeech.position.x = 10
+//             bubbleSpeech.position.y = 4
+//             bubbleSpeech.position.z = -6
+//             bubbleSpeech.rotation.y = - Math.PI * 0.5
+//             scene.add(bubbleSpeech)
+//         }
+//     )
 
 // // Add our webgl scene
 const scene = new THREE.Scene()
-scene.background = backgroundTexture
+// scene.background = backgroundTexture
 scene.fog = new THREE.FogExp2('#b2c1cb', 0.001)
 
 
@@ -196,11 +197,12 @@ let isTransitioning = false;
 
 // Array of texts
 const texts = [
-    "Hello, \n\nMy name is Iness, \nand I'm 19 Years \nold",
-    "I live in Paris \nwhere I'm studying \ndigital: \nUI design, front-\nend dev and more.",
-    "I love anything to \ndo with art, such \nas photography, \nfashion and \ndecoration. <3",
-    "And I keep myself \nup to date with \nlatest trends, as \nthis stimulates my \ncuriosity.",
-    "I'm a hard-worker \nwith a thirst for\nlearning and \nrigorous: for me \nevery detail counts"
+    " ",
+    "Hi ! \n\nMy name is Iness, I'm 20 ",
+    "I live in Paris where I'm \nstudying web development",
+    "I love anything to \ndo with art, such as \nphotography, fashion \nand design",
+    "I keep myself up to \ndate with latest trends, \nas this stimulates my \ncuriosity.",
+    "I'm a hard-worker with a \nthirst for learning and \nI'm also rigorous, \nfor me: \nevery detail counts ;)"
 ];
 
 // Index of text
@@ -216,7 +218,7 @@ function showText(text, position) {
             size: 0.33,
             height: 0.1
         });
-        const textMaterial = new THREE.MeshPhongMaterial({ color: 0xe000000 });
+        const textMaterial = new THREE.MeshPhongMaterial({ color: 0xefffff });
         // Mesh of the text
         const textMesh = new THREE.Mesh(textGeometry, textMaterial);
         textMesh.position.copy(position);
@@ -305,6 +307,7 @@ const loop = () => {
     particlesGeometry.attributes.position.needsUpdate = true
     // Render
     renderer.render(scene, camera)
+    controls.update()
 }
 
 loop()

@@ -1,3 +1,4 @@
+/* the fonts */
 @font-face {
     font-family: "Pixel";
     src: url("/fonts/pixel.woff2");
@@ -13,7 +14,7 @@
     src: url("/fonts/montserrat.woff2");
 }
 
-
+/* design of the scroll bar */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -31,6 +32,7 @@
     opacity: 0.7;
 }
 
+/* global CSS */
 *,
 *::before,
 *::after {
@@ -51,7 +53,6 @@ body {
 
 }
 
-
 canvas {
     position: absolute;
     top: 0;
@@ -60,20 +61,13 @@ canvas {
     height: 100%;
 }
 
-main {
+/* the navigation header */
+header {
     position: absolute;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    right: 0px;
-    width: 100%;
     z-index: 99;
-}
-
-.nav-links {
-    position: absolute;
-    top: 30px;
-    right: 20px;
+    display: flex;
+    justify-content: right;
+    width: 100%;
     font-family: "Pixel2";
     font-size: 16px;
     font-weight: 500;
@@ -81,47 +75,53 @@ main {
 }
 
 .link {
-    filter: drop-shadow(4px 5px 6px #b2b1b1);
+    position: relative;
     padding: 8px;
-    text-decoration: none;
-    color: #b3b3b3;
     margin: auto 40px;
+    text-decoration: underline;
+    color: #b3b3b3;
+
+
 }
 
 .link:hover {
-    opacity: 0.7;
+    opacity: 0.6;
 }
 
+/* text description */
 .more {
     position: absolute;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    bottom: 0px;
-    width: 100%;
-    z-index: 99;
-}
-
-.text {
-    z-index: 99;
-    margin: 50px;
-    padding: 0 5px 0 5px;
-    border: dashed rgb(121, 121, 121);
-    -webkit-text-stroke: 1px rgb(179, 179, 179);
-    color: #555555;
-    opacity: 0.9;
-    left: 50%;
-    font-family: 'Pixel2';
-    font-size: 22px;
     display: block;
+    z-index: 2;
+    color: #b6b6b6;
+    left: 50%;
+    bottom: 50%;
+    transform: translate(-50%);
+    font-family: 'Pixel';
+    font-size: 26px;
     line-height: 40px;
     font-weight: 400;
+    animation: blink 1s infinite;
 }
 
+@keyframes blink {
+    0% {
+        opacity: 0.8;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+
+    100% {
+        opacity: 0.8;
+    }
+}
+
+/* contacts links */
 footer.footer {
     position: absolute;
-    z-index: 99;
+    z-index: 2;
     bottom: 20px;
     left: 0%;
     font-family: "Pixel";
@@ -131,7 +131,7 @@ footer.footer {
     padding: 10px;
 }
 
-.icons .icon{
+.icons .icon {
     margin-top: 30px;
     display: table-cell;
     vertical-align: middle;
@@ -144,38 +144,34 @@ footer.footer .icon {
     color: none;
 }
 
+/* RESPONSIVE PART */
 /* tablet size */
-@media (max-width: 750px)
-{
-    .link
-{
+@media (max-width: 750px) {
+    .link {
         font-size: 18px;
         margin: auto 20px;
 
-}
+    }
 
-.text{
-    font-size: 16px;
-}
+    .more {
+        font-size: 16px;
+    }
 }
 
 /* phone size */
-@media (max-width: 600px) 
-{
-    .link
-{
-    font-size: 10px;
-    margin: auto 20px;
+@media (max-width: 600px) {
+    .link {
+        font-size: 10px;
+        margin: auto 20px;
 
-}
+    }
 
-.text
-{
-    display: none;
-    font-size: 8px;
-    border: none;
-    padding: 0;
+    .more {
+        display: none;
+        font-size: 8px;
+        border: none;
+        padding: 0;
 
 
-}
+    }
 }
