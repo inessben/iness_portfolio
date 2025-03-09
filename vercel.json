@@ -1,0 +1,16 @@
+{
+    "rewrites": [
+        {
+            "source": "/",
+            "destination": "/index.html"
+        },
+        {
+            "source": "/skills",
+            "destination": "/skills/skills.html"
+        },
+        {
+            "source": "/projects",
+            "destination": "/projects/projects.html"
+        }
+    ]
+}

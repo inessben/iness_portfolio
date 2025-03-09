@@ -5,7 +5,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js'
-// import { color } from 'three/examples/jsm/nodes/Nodes.js'
+
 // // add loaders to gltf
 const gltfLoader = new GLTFLoader()
 
@@ -17,6 +17,8 @@ const textureLoader = new THREE.TextureLoader()
 const floorTexture = textureLoader.load('textures/floor.jpg')
 floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping
 floorTexture.repeat.set(5, 5)
+// // background's texture
+const backgroundTexture = textureLoader.load('textures/background.jpeg')
 // particles
 const star = textureLoader.load('particles/1.png')
 
@@ -44,17 +46,39 @@ gltfLoader.load(
     }
 )
 
+// add a GLB speech bubble
+let bubbleSpeech
+gltfLoader.load
+    (
+        'models/bubble-speech.glb',
+        (gltf) => {
+            bubbleSpeech = gltf.scene
+
+            bubbleSpeech.traverse((child) => {
+                if (child.isMesh)
+                    child.castShadow = true
+                child.receiveShadow = false
+            })
+
+            bubbleSpeech.scale.set(5, 5, 5)
+            bubbleSpeech.position.x = 10
+            bubbleSpeech.position.y = 4
+            bubbleSpeech.position.z = -6
+            bubbleSpeech.rotation.y = - Math.PI * 0.5
+            scene.add(bubbleSpeech)
+        }
+    )
 
 // // Add our webgl scene
 const scene = new THREE.Scene()
-// scene.background = backgroundTexture
-// scene.fog = new THREE.FogExp2('#b2c1cb', 0.001)
+scene.background = backgroundTexture
+scene.fog = new THREE.FogExp2('#b2c1cb', 0.001)
 
 
 // Geometry
 const count = 100000
 const positionArray = new Float32Array(count * 3)
-// 
+
 for (let i = 0; i < count; i++) {
     // position
     positionArray[i * 3 + 0] = (Math.random() - 0.5) * 75
@@ -69,7 +93,7 @@ particlesGeometry.setAttribute
         new THREE.BufferAttribute(positionArray, 3)
     )
 
-// // Material
+// Material
 const particlesMaterial = new THREE.PointsMaterial
     ({
         size: 0.07,
@@ -81,7 +105,7 @@ const particlesMaterial = new THREE.PointsMaterial
         blending: THREE.AdditiveBlending
     })
 
-// // Particles
+// Particles
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
 scene.add(particles)
 
@@ -172,12 +196,11 @@ let isTransitioning = false;
 
 // Array of texts
 const texts = [
-    " ",
-    "Hi ! \n\nMy name is Iness, I'm 20 ",
-    "I live in Paris where I'm \nstudying web development",
-    "I love anything to \ndo with art, such as \nphotography, fashion \nand design",
-    "I keep myself up to \ndate with latest trends, \nas this stimulates my \ncuriosity.",
-    "I'm a hard-worker with a \nthirst for learning and \nI'm also rigorous, \nfor me: \nevery detail counts ;)"
+    "Hello, \n\nMy name is Iness, \nand I'm 19 Years \nold",
+    "I live in Paris \nwhere I'm studying \ndigital: \nUI design, front-\nend dev and more.",
+    "I love anything to \ndo with art, such \nas photography, \nfashion and \ndecoration. <3",
+    "And I keep myself \nup to date with \nlatest trends, as \nthis stimulates my \ncuriosity.",
+    "I'm a hard-worker \nwith a thirst for\nlearning and \nrigorous: for me \nevery detail counts"
 ];
 
 // Index of text
@@ -193,7 +216,7 @@ function showText(text, position) {
             size: 0.33,
             height: 0.1
         });
-        const textMaterial = new THREE.MeshPhongMaterial({ color: 0xefffff });
+        const textMaterial = new THREE.MeshPhongMaterial({ color: 0xe000000 });
         // Mesh of the text
         const textMesh = new THREE.Mesh(textGeometry, textMaterial);
         textMesh.position.copy(position);
@@ -235,7 +258,7 @@ function showText(text, position) {
 
 // Function to handle the spacebar event
 function handleSpacebar(event) {
-    if (event.code === "Space") {
+    if (event.code === "click") {
         // Prevent consecutive spacebar clicks during transition
         if (isTransitioning) {
             return;
@@ -255,7 +278,7 @@ function handleSpacebar(event) {
 }
 
 // Add the event listener for the spacebar
-window.addEventListener("keydown", handleSpacebar);
+window.addEventListener("click", myFunction);
 
 // Show the first text of the page
 const initialText = texts[0];
@@ -282,7 +305,6 @@ const loop = () => {
     particlesGeometry.attributes.position.needsUpdate = true
     // Render
     renderer.render(scene, camera)
-    controls.update()
 }
 
 loop()

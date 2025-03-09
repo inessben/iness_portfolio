@@ -3,9 +3,9 @@ export default {
         rollupOptions: {
             input: {
                 index: 'index.html',
-                skills: 'skills.html',
-                projects: 'projects.html'
+                skills: 'skills/skills.html',
+                projects: 'projects/projects.html'
             }
         }
     }
-}
+};

@@ -33,7 +33,6 @@
 * {
     margin: 0;
     padding: 0;
-    overflow: auto;
 }
 
 html,
@@ -45,7 +44,6 @@ body {
 
 canvas {
     position: fixed;
-    overflow: scroll;
     top: 0;
     left: 0;
     width: 100%;
@@ -64,7 +62,7 @@ main {
 .nav-links {
     position: absolute;
     font-family: "Pixel2";
-    text-decoration: underline;
+    color: #ED8FB6;
     font-size: 16px;
     font-weight: 400;
     padding: 20px;
@@ -73,9 +71,9 @@ main {
 }
 
 .link {
-    /* filter: drop-shadow(4px 5px 6px #b2b1b1); */
+    border: 2px solid #696969;
     padding: 8px;
-    text-decoration: underline;
+    text-decoration: none;
     border-radius: 10px;
     color: #B3B3B3;
     margin: auto 50px;
@@ -127,6 +125,7 @@ h3 {
     background: #353b48;
     display: block;
     height: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12) 0 1px 2px rgba(0, 0, 0, 0.24);
     transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
@@ -164,18 +163,18 @@ h3 {
     animation: bootstrap 3s;
 }
 
-.three {
-    width: 80%;
-    animation: three 3s;
+.webgl {
+    width: 70%;
+    animation: webgl 3s;
 }
 
 .javascript {
-    width: 80%;
+    width: 70%;
     animation: javascript 3s;
 }
 
 .react {
-    width: 80%;
+    width: 50%;
     animation: react 3s;
 }
 
@@ -187,16 +186,6 @@ h3 {
 .photoshop {
     width: 50%;
     animation: photoshop 3s;
-}
-
-.webpack {
-    width: 90%;
-    animation: webpack 3s;
-}
-
-.github {
-    width: 90%;
-    animation: github 3s;
 }
 
 @keyframes html {
@@ -219,33 +208,13 @@ h3 {
     }
 }
 
-@keyframes javascript {
+@keyframes figma {
     0% {
         width: 0%;
     }
 
     100% {
-        width: 80%;
-    }
-}
-
-@keyframes three {
-    0% {
-        width: 0%;
-    }
-
-    100% {
-        width: 80%;
-    }
-}
-
-@keyframes react {
-    0% {
-        width: 0%;
-    }
-
-    100% {
-        width: 80%;
+        width: 90%;
     }
 }
 
@@ -259,33 +228,33 @@ h3 {
     }
 }
 
-@keyframes webpack {
+@keyframes webgl {
     0% {
         width: 0%;
     }
 
     100% {
-        width: 90%;
+        width: 70%;
     }
 }
 
-@keyframes github {
+@keyframes javascript {
     0% {
         width: 0%;
     }
 
     100% {
-        width: 90%;
+        width: 70%;
     }
 }
 
-@keyframes figma {
+@keyframes react {
     0% {
         width: 0%;
     }
 
     100% {
-        width: 90%;
+        width: 50%;
     }
 }
 
@@ -309,37 +278,22 @@ h3 {
     }
 }
 
-/* tablet size */
-@media (max-width: 750px) {
-    .link {
-        font-size: 18px;
-        margin: auto 20px;
-
-    }
-
+/* footer.footer {
+    position: absolute;
+    z-index: 99;
+    top: 20px;
+    left: 0%;
+    font-family: "Pixel";
+    color: none;
+    font-size: 18px;
+    font-weight: 400;
+    padding: 10px;
 }
 
-/* phone size */
-@media (max-width: 600px) {
-    .link {
-        font-size: 10px;
-        margin: auto 20px;
+footer.footer .icon {
+    width: 60px;
+    top: 200px;
+    padding-right: 22px;
+    color: none;
 
-    }
-
-}
-
-/* phone size */
-@media (max-width: 405px) {
-    .link {
-        font-size: 10px;
-        margin: auto 20px;
-
-    }
-
-    .skills h1 {
-
-        font-size: 26px;
-    }
-
-}
+} */
