@@ -9,7 +9,7 @@ import { GammaCorrectionShader } from 'three/addons/shaders/GammaCorrectionShade
 // loaders
 const textureLoader = new THREE.TextureLoader()
 // planets
-const planetTexture = textureLoader.load('textures/rocky_planet.jpg')
+const planetTexture = textureLoader.load('/dist/textures/rocky_planet.jpg')
 planetTexture.wrapS = planetTexture.wrapT = THREE.RepeatWrapping
 planetTexture.repeat.set(2, 2)
 

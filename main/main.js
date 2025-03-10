@@ -107,9 +107,11 @@ window.addEventListener('resize', () => {
 
 // Add the camera
 const camera = new THREE.PerspectiveCamera(32, sizes.width / sizes.height, 1, 200)
-camera.position.x = -24
-camera.position.z = 10
+camera.position.x = - 37.3
+camera.position.y = 10
+camera.position.z = 1
 scene.add(camera)
+
 
 // Add some Lights
 // Purple ambient light
@@ -262,6 +264,10 @@ const initialText = texts[0];
 const initialPosition = new THREE.Vector3(9, 6.5, -13);
 showText(initialText, initialPosition);
 
+// function logCameraPosition() {
+//     console.log(`Position: x=${camera.position.x}, y=${camera.position.y}, z=${camera.position.z}`);
+// }
+
 
 
 // loop
@@ -283,6 +289,7 @@ const loop = () => {
     // Render
     renderer.render(scene, camera)
     controls.update()
+    // logCameraPosition()
 }
 
 loop()
