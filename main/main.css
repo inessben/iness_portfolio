@@ -64,6 +64,7 @@ body {
 
 .contact {
     margin-top: 20px;
+    font-family: "Tektur";
     padding: 10px;
     font-size: 20px;
 }
@@ -71,8 +72,6 @@ body {
 .links {
     margin-top: 10px;
     padding: 10px;
-
-    font-family: "Tektur";
     display: flex;
     gap: 20px;
 }
