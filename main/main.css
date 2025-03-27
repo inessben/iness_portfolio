@@ -20,6 +20,7 @@ body {
 }
 
 .message {
+    font-family: "Boldonse";
     font-size: 36px;
     font-weight: bold;
     text-transform: uppercase;
@@ -64,7 +65,6 @@ body {
 .contact {
     margin-top: 20px;
     padding: 10px;
-    /* font-family: "Tektur"; */
     font-size: 20px;
 }
 
