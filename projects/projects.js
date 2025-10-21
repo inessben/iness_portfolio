@@ -109,6 +109,3 @@ function animate() {
 
 // Appel de la fonction de démarrage au chargement de la page
 startButtonClick();
-
-
-
