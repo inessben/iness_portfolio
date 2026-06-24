@@ -1,0 +1,898 @@
+/* polices */
+@import url('https://fonts.googleapis.com/css2?family=Bruno+Ace+SC&display=swap');
+
+/* ── Loading screen ────────────────────────────── */
+.loading-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    background: #020208;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.8s ease;
+}
+.loading-screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+.loading-screen__inner { text-align: center; width: 280px; }
+.loading-screen__title {
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-size: 18px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: rgba(180, 150, 255, 0.9);
+    text-shadow: 0 0 30px rgba(140, 80, 255, 0.4);
+    margin-bottom: 6px;
+}
+.loading-screen__sub {
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-size: 8px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(160, 140, 200, 0.35);
+    margin-bottom: 28px;
+}
+.loading-screen__bar {
+    height: 2px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 1px;
+    overflow: hidden;
+}
+.loading-screen__fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, rgba(140,80,255,0.6), rgba(180,120,255,0.9));
+    box-shadow: 0 0 12px rgba(140,80,255,0.4);
+    transition: width 0.4s ease;
+}
+
+/* ── HUD ───────────────────────────────────────── */
+.hud {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 55;
+    pointer-events: none;
+}
+.hud__zone {
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(170, 200, 255, 0.4);
+    transition: color 0.3s, text-shadow 0.3s;
+    margin-bottom: 2px;
+}
+.hud__coords {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: rgba(160, 180, 220, 0.2);
+}
+
+/* ── Touch feedback ────────────────────────────── */
+@media (hover: none) {
+    .pc-project:active {
+        border-left-color: var(--zone-color, #7744ff) !important;
+        background: rgba(255,255,255,0.05) !important;
+        transform: translateX(4px) scale(0.98);
+    }
+    .pc-tag:active {
+        background: color-mix(in srgb, var(--zone-color, #7744ff) 10%, transparent) !important;
+        transform: scale(0.95);
+    }
+    .pc-link:active {
+        background: color-mix(in srgb, var(--zone-color, #7744ff) 10%, transparent) !important;
+        transform: translateX(4px) scale(0.98);
+    }
+    .pc-close:active {
+        background: color-mix(in srgb, var(--zone-color, #7744ff) 15%, transparent) !important;
+    }
+    .volume-btn:active {
+        background: rgba(140, 80, 255, 0.15) !important;
+        transform: scale(0.9);
+    }
+}
+
+@font-face {
+    font-family: "Montserrat";
+    src: url("/fonts/montserrat.woff2");
+}
+
+/* scrollbar discrète pour pas casser l'ambiance sombre */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: none;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #4b4b4b;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    opacity: 0.7;
+}
+
+/* reset de base — marges, paddings, box model */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html,
+body {
+    box-sizing: border-box;
+    overflow: hidden; /* pas de scroll, c'est une scene 3d qui prend tout */
+    top: 0;
+    left: 0;
+    font-family: 'Montserrat';
+    background: #000;
+    color: #acacac;
+}
+
+/* le canvas three.js couvre toute la fenetre en fond
+   le :not(.minimap) evite d'ecraser les styles de la minimap ronde */
+canvas:not(.minimap) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* ── Top-right toolbar ─────────────────────────── */
+.toolbar {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 55;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.volume-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(12, 6, 28, 0.6);
+    border: 1px solid rgba(140, 80, 255, 0.2);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(180, 150, 255, 0.8);
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+.volume-btn:hover {
+    border-color: rgba(140, 80, 255, 0.5);
+    background: rgba(140, 80, 255, 0.1);
+    box-shadow: 0 0 16px rgba(140, 80, 255, 0.15);
+}
+.volume-btn.muted {
+    border-color: rgba(255, 255, 255, 0.08);
+    opacity: 0.5;
+}
+
+.cv-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 16px;
+    border-radius: 6px;
+    background: rgba(12, 6, 28, 0.6);
+    border: 1px solid rgba(140, 80, 255, 0.25);
+    backdrop-filter: blur(12px);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(180, 150, 255, 0.8);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+.cv-btn svg { flex-shrink: 0; }
+.cv-btn:hover {
+    border-color: rgba(140, 80, 255, 0.5);
+    background: rgba(140, 80, 255, 0.12);
+    box-shadow: 0 0 20px rgba(140, 80, 255, 0.15);
+    color: #e0d4ff;
+    letter-spacing: 3px;
+}
+
+/* ── Minimap ────────────────────────────────────── */
+/* canvas rond en bas a droite — position fixed pour rester là quand on bouge */
+.minimap {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 148px;
+    height: 148px;
+    border-radius: 50%;
+    border: 1px solid rgba(170, 119, 255, 0.18);
+    box-shadow: 0 0 16px rgba(0,0,0,0.55), 0 0 24px rgba(170,119,255,0.07);
+    z-index: 50;
+    pointer-events: none;
+}
+
+/* ══════════════════════════════════════════════════
+   PROXIMITY CARD — Full Viewport Panel
+   ══════════════════════════════════════════════════ */
+
+@keyframes panelSlideIn {
+    from { transform: translateX(100%); }
+    to   { transform: translateX(0); }
+}
+@keyframes panelSlideOut {
+    from { transform: translateX(0); }
+    to   { transform: translateX(100%); }
+}
+@keyframes scanlineScroll {
+    from { background-position: 0 0; }
+    to   { background-position: 0 200px; }
+}
+@keyframes fadeUp {
+    from { transform: translateY(12px); opacity: 0; }
+    to   { transform: translateY(0);   opacity: 1; }
+}
+@keyframes glowPulse {
+    0%, 100% { opacity: 0.3; }
+    50%      { opacity: 0.7; }
+}
+
+.proximity-card {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: min(420px, 100vw);
+    height: 100vh;
+    z-index: 60;
+    transform: translateX(100%);
+    pointer-events: none;
+}
+.proximity-card.visible {
+    animation: panelSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    pointer-events: auto;
+}
+.proximity-card.closing {
+    animation: panelSlideOut 0.35s ease forwards;
+    pointer-events: none;
+}
+
+.proximity-card__inner {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: rgba(4, 6, 18, 0.95);
+    border-left: 1px solid color-mix(in srgb, var(--zone-color, #7744ff) 25%, transparent);
+    overflow-y: auto;
+    overflow-x: hidden;
+    backdrop-filter: blur(40px) saturate(180%);
+    box-shadow:
+        -20px 0 80px rgba(0,0,0,0.6),
+        0 0 100px color-mix(in srgb, var(--zone-color, #7744ff) 8%, transparent);
+}
+
+/* animated scanlines */
+.proximity-card__inner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent 0px, transparent 2px,
+        rgba(255,255,255,0.01) 2px, rgba(255,255,255,0.01) 3px
+    );
+    animation: scanlineScroll 12s linear infinite;
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* left edge glow */
+.proximity-card__inner::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 1px;
+    background: var(--zone-color, #7744ff);
+    box-shadow: 0 0 20px var(--zone-color, #7744ff), 0 0 60px var(--zone-color, #7744ff);
+    animation: glowPulse 3s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 6;
+}
+
+/* ── Header ────────────────────────────────────── */
+.pc-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 32px 28px 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--zone-color, #7744ff) 8%, transparent),
+        transparent
+    );
+    position: relative;
+    animation: fadeUp 0.4s ease 0.15s both;
+    flex-shrink: 0;
+}
+
+.pc-header::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 28px; right: 28px;
+    height: 1px;
+    background: linear-gradient(
+        90deg, transparent,
+        color-mix(in srgb, var(--zone-color, #7744ff) 40%, transparent),
+        transparent
+    );
+}
+
+.pc-icon {
+    font-size: 32px;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 16px var(--zone-color, #7744ff));
+}
+.pc-title {
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--zone-color, #7744ff);
+    text-shadow: 0 0 24px color-mix(in srgb, var(--zone-color, #7744ff) 50%, transparent);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+.pc-subtitle {
+    font-size: 9px;
+    font-weight: 600;
+    color: rgba(160, 190, 255, 0.35);
+    margin-top: 4px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-family: 'Bruno Ace SC', sans-serif;
+}
+
+.pc-close {
+    position: absolute;
+    top: 28px; right: 24px;
+    width: 32px; height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-family: monospace;
+    z-index: 7;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.02);
+}
+.pc-close:hover {
+    color: var(--zone-color, #7744ff);
+    border-color: color-mix(in srgb, var(--zone-color, #7744ff) 40%, transparent);
+    background: color-mix(in srgb, var(--zone-color, #7744ff) 10%, transparent);
+    box-shadow: 0 0 16px color-mix(in srgb, var(--zone-color, #7744ff) 20%, transparent);
+}
+
+/* ── Body ──────────────────────────────────────── */
+.pc-body {
+    padding: 28px;
+    flex: 1;
+    animation: fadeUp 0.4s ease 0.25s both;
+    overflow-y: auto;
+}
+.pc-text {
+    font-size: 12px;
+    line-height: 2;
+    color: rgba(170, 210, 255, 0.5);
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* ── Project cards ─────────────────────────────── */
+.pc-projects { display: flex; flex-direction: column; gap: 10px; }
+.pc-project {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 20px;
+    text-decoration: none;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.04);
+    border-left: 2px solid color-mix(in srgb, var(--zone-color, #7744ff) 40%, transparent);
+    border-radius: 6px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    animation: fadeUp 0.4s ease calc(0.3s + var(--i, 0) * 0.1s) both;
+}
+.pc-project::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--zone-color, #7744ff) 10%, transparent),
+        transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.pc-project:hover::before { opacity: 1; }
+.pc-project:hover {
+    border-left-color: var(--zone-color, #7744ff);
+    border-color: color-mix(in srgb, var(--zone-color, #7744ff) 25%, transparent);
+    transform: translateX(6px);
+    box-shadow: 0 8px 30px color-mix(in srgb, var(--zone-color, #7744ff) 10%, transparent);
+}
+.pc-project__name {
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-size: 11px;
+    color: rgba(200, 220, 255, 0.85);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    position: relative; z-index: 1;
+}
+.pc-project:hover .pc-project__name { color: #fff; text-shadow: 0 0 12px var(--zone-color, #7744ff); }
+.pc-project__desc {
+    font-size: 10px;
+    color: rgba(160, 190, 255, 0.25);
+    flex: 1;
+    position: relative; z-index: 1;
+}
+.pc-project__arrow {
+    font-size: 20px;
+    color: var(--zone-color, #7744ff);
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: all 0.3s ease;
+    position: relative; z-index: 1;
+}
+.pc-project:hover .pc-project__arrow { opacity: 1; transform: translateX(0); }
+
+/* ── Skill tags ───────────────────────────────── */
+.pc-skill-group {
+    margin-bottom: 20px;
+    animation: fadeUp 0.4s ease calc(0.3s + var(--g, 0) * 0.12s) both;
+}
+.pc-skill-group:last-child { margin-bottom: 0; }
+.pc-skill-group__label {
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    opacity: 0.5;
+    position: relative;
+    padding-left: 14px;
+}
+.pc-skill-group__label::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--zone-color, #7744ff);
+    font-size: 8px;
+}
+.pc-skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.pc-tag {
+    font-size: 10px;
+    color: rgba(170, 205, 255, 0.5);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 4px;
+    padding: 7px 14px;
+    letter-spacing: 0.3px;
+    font-family: 'Montserrat', sans-serif;
+    background: rgba(255,255,255,0.015);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+.pc-tag::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--zone-color, #7744ff) 12%, transparent), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+.pc-tag:hover::before { opacity: 1; }
+.pc-tag:hover {
+    color: #e0eeff;
+    border-color: color-mix(in srgb, var(--zone-color, #7744ff) 40%, transparent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px color-mix(in srgb, var(--zone-color, #7744ff) 12%, transparent);
+}
+
+/* ── Contact links ─────────────────────────────── */
+.pc-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.pc-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-family: 'Bruno Ace SC', sans-serif;
+    color: rgba(160, 195, 255, 0.6);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 6px;
+    padding: 16px 20px;
+    text-decoration: none;
+    background: rgba(255,255,255,0.015);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.4s ease calc(0.3s + var(--i, 0) * 0.1s) both;
+}
+.pc-link::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
+    transition: left 0.6s ease;
+}
+.pc-link:hover::before { left: 100%; }
+.pc-link:hover {
+    color: #fff;
+    border-color: color-mix(in srgb, var(--zone-color, #7744ff) 40%, transparent);
+    background: color-mix(in srgb, var(--zone-color, #7744ff) 8%, transparent);
+    box-shadow: 0 6px 24px color-mix(in srgb, var(--zone-color, #7744ff) 12%, transparent);
+    transform: translateX(6px);
+}
+.pc-link__icon { font-size: 20px; }
+.pc-link__label { flex: 1; }
+.pc-link__arrow {
+    font-size: 16px;
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: all 0.25s ease;
+    color: var(--zone-color, #7744ff);
+}
+.pc-link:hover .pc-link__arrow { opacity: 1; transform: translateX(0); }
+
+
+/* ── Responsive ─────────────────────────────────── */
+/* tablette : on reduit un peu la nav */
+@media (max-width: 970px) {
+    .link {
+        font-size: 18px;
+        margin: auto 20px;
+    }
+
+    .description {
+        font-size: 16px;
+    }
+}
+
+/* ── Tablet controls ───────────────────────────── */
+.mobile-joystick {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(170, 119, 255, 0.08);
+    border: 1px solid rgba(170, 119, 255, 0.25);
+    z-index: 50;
+    touch-action: none;
+}
+.mobile-joystick__knob {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 44px; height: 44px;
+    margin: -22px 0 0 -22px;
+    border-radius: 50%;
+    background: rgba(170, 119, 255, 0.3);
+    border: 1px solid rgba(170, 119, 255, 0.5);
+    pointer-events: none;
+}
+
+/* ── Tablet (601-900px) ────────────────────────── */
+@media (min-width: 601px) and (max-width: 900px) {
+    .mobile-joystick { display: block; }
+    .minimap { bottom: 160px; right: 14px; width: 100px; height: 100px; }
+    .proximity-card { width: 100vw; }
+    .toolbar { top: 14px; right: 14px; gap: 8px; }
+    .volume-btn { width: 36px; height: 36px; }
+    .cv-btn { height: 36px; padding: 0 12px; font-size: 8px; letter-spacing: 1.5px; }
+    .hud { top: 14px; left: 14px; }
+    .hud__zone { font-size: 9px; letter-spacing: 3px; }
+    .tuto-popup { max-width: 340px; padding: 24px 28px 20px; }
+    .tuto-popup__title { font-size: 16px; letter-spacing: 7px; }
+    .tuto-popup__actions { gap: 5px; }
+    .tuto-popup__action { padding: 10px 6px 8px; }
+}
+
+/* ── Mini tablet (601-750px) ──────────────────── */
+@media (min-width: 601px) and (max-width: 750px) {
+    .proximity-card { width: 100vw; }
+    .cv-btn span { display: none; }
+    .tuto-popup { max-width: 300px; padding: 20px 22px 18px; }
+    .tuto-popup__title { font-size: 14px; letter-spacing: 5px; }
+    .tuto-popup__key { width: 36px; height: 36px; }
+    .tuto-popup__actions { flex-wrap: wrap; }
+    .tuto-popup__action { min-width: calc(50% - 4px); }
+}
+
+/* ── Mobile phone ──────────────────────────────── */
+@media (max-width: 600px) {
+    body {
+        background: #121212;
+        color: #bfbfbf;
+        font-family: "Montserrat";
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        font-size: 30px;
+        text-align: center;
+    }
+    body::before { content: "Please rotate your phone"; display: block; }
+    body::after {
+        content: "\21B7";
+        font-size: 60px;
+        margin-top: 10px;
+        display: block;
+        animation: rotate 1.5s infinite;
+    }
+    @keyframes rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(90deg); } }
+    * { visibility: hidden; }
+    body::before, body::after { visibility: visible; }
+}
+
+/* ── Tuto popup ────────────────────────────────── */
+@keyframes tutoPopIn {
+    from { transform: translate(-50%, -46%) scale(0.88); opacity: 0; filter: blur(6px); }
+    to   { transform: translate(-50%, -50%) scale(1);    opacity: 1; filter: blur(0); }
+}
+@keyframes tutoPopOut {
+    from { transform: translate(-50%, -50%) scale(1);  opacity: 1; }
+    to   { transform: translate(-50%, -54%) scale(0.9); opacity: 0; filter: blur(4px); }
+}
+@keyframes keyPulse {
+    0%, 100% { box-shadow: 0 0 0 rgba(140,80,255,0), inset 0 0 0 rgba(140,80,255,0); }
+    50%      { box-shadow: 0 0 14px rgba(140,80,255,0.2), inset 0 0 8px rgba(140,80,255,0.05); }
+}
+
+.tuto-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 199;
+    background: rgba(0, 0, 0, 1);
+    transition: opacity 0.5s ease;
+}
+.tuto-backdrop.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.tuto-popup {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 200;
+    background: rgba(12, 6, 28, 0.95);
+    border: 1px solid rgba(140, 80, 255, 0.25);
+    border-radius: 16px;
+    padding: 32px 36px 28px;
+    backdrop-filter: blur(30px) saturate(180%);
+    box-shadow:
+        0 24px 80px rgba(0,0,0,0.7),
+        0 0 80px rgba(120,60,255,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.06);
+    max-width: 480px;
+    width: 90vw;
+    text-align: center;
+    animation: tutoPopIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.tuto-popup.hidden {
+    animation: tutoPopOut 0.4s ease forwards;
+    pointer-events: none;
+}
+
+/* corner dashes */
+.tuto-popup::before, .tuto-popup::after {
+    content: '';
+    position: absolute;
+    width: 40px; height: 40px;
+    pointer-events: none;
+}
+.tuto-popup::before {
+    top: 8px; left: 8px;
+    border-top: 1.5px dashed rgba(140,80,255,0.3);
+    border-left: 1.5px dashed rgba(140,80,255,0.3);
+    border-radius: 8px 0 0 0;
+}
+.tuto-popup::after {
+    bottom: 8px; right: 8px;
+    border-bottom: 1.5px dashed rgba(140,80,255,0.3);
+    border-right: 1.5px dashed rgba(140,80,255,0.3);
+    border-radius: 0 0 8px 0;
+}
+
+.tuto-popup__title {
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-size: 20px;
+    letter-spacing: 10px;
+    text-transform: uppercase;
+    color: #e0d4ff;
+    text-shadow: 0 0 30px rgba(140,80,255,0.5);
+    margin-bottom: 4px;
+    animation: fadeUp 0.4s ease 0.1s both;
+}
+.tuto-popup__sub {
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-size: 8px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: rgba(180,140,255,0.4);
+    margin-bottom: 24px;
+    animation: fadeUp 0.4s ease 0.15s both;
+}
+
+/* arrow keys */
+.tuto-popup__keys {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 24px;
+    animation: fadeUp 0.4s ease 0.2s both;
+}
+.tuto-popup__row {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+.tuto-popup__key {
+    width: 42px; height: 42px;
+    border: 1.5px solid rgba(140,80,255,0.3);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: rgba(180,150,255,0.8);
+    background: rgba(140,80,255,0.06);
+    animation: keyPulse 2.5s ease-in-out infinite;
+}
+.tuto-popup__key:nth-child(1) { animation-delay: 0s; }
+.tuto-popup__key:nth-child(2) { animation-delay: 0.4s; }
+.tuto-popup__key:nth-child(3) { animation-delay: 0.8s; }
+
+.tuto-popup__arrow-hint {
+    font-size: 18px;
+    color: rgba(140,80,255,0.25);
+    width: 20px;
+    text-align: center;
+}
+
+/* action cards row */
+.tuto-popup__actions {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    animation: fadeUp 0.4s ease 0.35s both;
+}
+.tuto-popup__action {
+    flex: 1;
+    background: rgba(140,80,255,0.04);
+    border: 1px solid rgba(140,80,255,0.12);
+    border-radius: 10px;
+    padding: 14px 8px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+.tuto-popup__action--active {
+    border-color: rgba(140,80,255,0.35);
+    background: rgba(140,80,255,0.08);
+    box-shadow: 0 0 20px rgba(140,80,255,0.08);
+}
+.tuto-popup__action-icon {
+    font-size: 18px;
+    color: rgba(180,150,255,0.6);
+}
+.tuto-popup__action-keys {
+    display: flex;
+    gap: 3px;
+}
+.tuto-popup__action-keys span {
+    width: 20px; height: 20px;
+    border: 1px solid rgba(140,80,255,0.3);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    color: rgba(180,150,255,0.7);
+    background: rgba(140,80,255,0.06);
+}
+.tuto-popup__action-label {
+    font-family: 'Bruno Ace SC', sans-serif;
+    font-size: 8px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(220,200,255,0.7);
+}
+.tuto-popup__action-hint {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    color: rgba(160,140,200,0.35);
+}
+
+.tuto-popup__hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    color: rgba(255, 160, 80, 0.5);
+    margin-bottom: 20px;
+    animation: fadeUp 0.4s ease 0.42s both;
+}
+.tuto-popup__hint svg { color: rgba(255, 136, 68, 0.6); flex-shrink: 0; }
+
+/* GOT IT button */
+.tuto-popup__btn {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #e0d4ff;
+    background: linear-gradient(135deg, rgba(140,80,255,0.2), rgba(100,40,220,0.3));
+    border: 1px solid rgba(140,80,255,0.35);
+    border-radius: 8px;
+    padding: 30px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.4s ease 0.45s both;
+}
+.tuto-popup__btn::before {
+    content: '';
+    position: absolute;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+}
+.tuto-popup__btn:hover::before { transform: translateX(100%); }
+.tuto-popup__btn:hover {
+    background: linear-gradient(135deg, rgba(140,80,255,0.3), rgba(100,40,220,0.45));
+    border-color: rgba(160,100,255,0.6);
+    box-shadow: 0 0 30px rgba(140,80,255,0.2);
+    letter-spacing: 6px;
+}
