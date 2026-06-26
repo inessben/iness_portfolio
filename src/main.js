@@ -270,9 +270,6 @@ const crateConfigs = [
     { x:  200, z: -240,  ry: 0.3,  color: 0x3a5a6a },
     { x: -280, z:  -40,  ry: 2.6,  color: 0x7a8a9a },
     { x:  160, z:  280,  ry: 1.8,  color: 0x5a7090 },
-    { x:  20,  z:  -25,  ry: 0.6,  color: 0x6a7a8a },
-    { x: -25,  z:   20,  ry: 1.9,  color: 0x5a6a7a },
-    { x:  35,  z:   40,  ry: 0.3,  color: 0x7a8a9a },
 ]
 let crateLoaded = false
 crateConfigs.forEach(({ x, z, ry, color }) => {
@@ -300,6 +297,7 @@ crateConfigs.forEach(c => colliders.push({ x: c.x, z: c.z, r: 4 }))
 colliders.push({ x: -40, z: -250, r: 15 })
 
 // ── Space shuttle au sol ─────────────────────────────
+const shuttleLights = []
 gltfLoader.load('/models/orbiter_space_shuttle.glb', (gltf) => {
     const shuttle = gltf.scene
     shuttle.scale.set(3.5, 3.5, 3.5)
@@ -307,45 +305,64 @@ gltfLoader.load('/models/orbiter_space_shuttle.glb', (gltf) => {
     shuttle.rotation.y = Math.PI * 0.15
     shuttle.traverse((child) => {
         if (child.isMesh) {
+            child.material = child.material.clone()
+            child.material.color.multiplyScalar(0.3)
+            child.material.roughness = 0.8
+            child.material.metalness = 0.6
             child.castShadow = true
             child.receiveShadow = true
         }
     })
+
+    const flickerColors = [0xff4400, 0x44aaff, 0xffaa00]
+    const flickerOffsets = [
+        { x: 0, y: 3, z: -4 },
+        { x: 2, y: 1, z: 2 },
+        { x: -2, y: 4, z: 0 },
+    ]
+    flickerOffsets.forEach((off, i) => {
+        const light = new THREE.PointLight(flickerColors[i], 0, 15)
+        light.position.set(off.x, off.y, off.z)
+        light.userData.flickerSeed = Math.random() * 100
+        shuttle.add(light)
+        shuttleLights.push(light)
+    })
+
     scene.add(shuttle)
     console.log('shuttle chargé')
 }, undefined, (err) => console.warn('orbiter_space_shuttle.glb non trouvé', err))
 
 // ── Barrières métalliques autour du périmètre ────────
 const barrierPositions = [
-    // derrière About (z=-60) → z=-95
-    { x: -35, z: -95, ry: 0 },
-    { x: -15, z: -95, ry: 0 },
-    { x:   5, z: -95, ry: 0 },
-    { x:  25, z: -95, ry: 0 },
-    { x:  45, z: -95, ry: 0 },
-    // derrière Projects (x=60) → x=95
-    { x: 95, z: -35, ry: Math.PI / 2 },
-    { x: 95, z: -15, ry: Math.PI / 2 },
-    { x: 95, z:   5, ry: Math.PI / 2 },
-    { x: 95, z:  25, ry: Math.PI / 2 },
-    { x: 95, z:  45, ry: Math.PI / 2 },
-    // derrière Skills (z=60) → z=95
-    { x: -35, z: 95, ry: 0 },
-    { x: -15, z: 95, ry: 0 },
-    { x:   5, z: 95, ry: 0 },
-    { x:  25, z: 95, ry: 0 },
-    { x:  45, z: 95, ry: 0 },
-    // derrière Contact (x=-60) → x=-95
-    { x: -95, z: -35, ry: Math.PI / 2 },
-    { x: -95, z: -15, ry: Math.PI / 2 },
-    { x: -95, z:   5, ry: Math.PI / 2 },
-    { x: -95, z:  25, ry: Math.PI / 2 },
-    { x: -95, z:  45, ry: Math.PI / 2 },
+    // nord (z négatif)
+    { x: -60, z: -140, ry: 0 },
+    { x: -30, z: -140, ry: 0 },
+    { x:   0, z: -140, ry: 0 },
+    { x:  30, z: -140, ry: 0 },
+    { x:  60, z: -140, ry: 0 },
+    // est (x positif)
+    { x: 140, z: -60, ry: Math.PI / 2 },
+    { x: 140, z: -30, ry: Math.PI / 2 },
+    { x: 140, z:   0, ry: Math.PI / 2 },
+    { x: 140, z:  30, ry: Math.PI / 2 },
+    { x: 140, z:  60, ry: Math.PI / 2 },
+    // sud (z positif)
+    { x: -60, z: 140, ry: 0 },
+    { x: -30, z: 140, ry: 0 },
+    { x:   0, z: 140, ry: 0 },
+    { x:  30, z: 140, ry: 0 },
+    { x:  60, z: 140, ry: 0 },
+    // ouest (x négatif)
+    { x: -140, z: -60, ry: Math.PI / 2 },
+    { x: -140, z: -30, ry: Math.PI / 2 },
+    { x: -140, z:   0, ry: Math.PI / 2 },
+    { x: -140, z:  30, ry: Math.PI / 2 },
+    { x: -140, z:  60, ry: Math.PI / 2 },
     // coins
-    { x: -95, z: -95, ry: Math.PI / 4 },
-    { x:  95, z: -95, ry: -Math.PI / 4 },
-    { x:  95, z:  95, ry: Math.PI / 4 },
-    { x: -95, z:  95, ry: -Math.PI / 4 },
+    { x: -140, z: -140, ry: Math.PI / 4 },
+    { x:  140, z: -140, ry: -Math.PI / 4 },
+    { x:  140, z:  140, ry: Math.PI / 4 },
+    { x: -140, z:  140, ry: -Math.PI / 4 },
 ]
 
 barrierPositions.forEach(({ x, z, ry }) => {
@@ -863,10 +880,12 @@ function createHoloScreen(zone) {
             }
         `,
         transparent: true,
+        depthWrite: false,
         side: THREE.DoubleSide,
     })
 
-    const screen = new THREE.Mesh(new THREE.BoxGeometry(30, 15, 0.3), mat)
+    const screen = new THREE.Mesh(new THREE.PlaneGeometry(30, 15), mat)
+    screen.renderOrder = 1
     const randOffX = (Math.random() - 0.5) * 40
     const randOffZ = (Math.random() - 0.5) * 40
     screen.position.set(
@@ -1150,8 +1169,8 @@ proximityCard.innerHTML = '<div class="proximity-card__inner"></div>'
 document.body.appendChild(proximityCard)
 
 let activeZone        = null
-const PROXIMITY_ENTER = 22
-const PROXIMITY_EXIT  = 28
+const PROXIMITY_ENTER = 12
+const PROXIMITY_EXIT  = 18
 
 // ── HUD ──────────────────────────────────────────────
 const hud = document.createElement('div')
@@ -1482,8 +1501,8 @@ const loop = () => {
             }
 
             player.position.add(move)
-            player.position.x = Math.max(-88, Math.min(88, player.position.x))
-            player.position.z = Math.max(-88, Math.min(88, player.position.z))
+            player.position.x = Math.max(-130, Math.min(130, player.position.x))
+            player.position.z = Math.max(-130, Math.min(130, player.position.z))
 
             for (const c of colliders) {
                 const dx = player.position.x - c.x
@@ -1586,6 +1605,15 @@ const loop = () => {
         flyingSaucer.position.y = 35 + Math.sin(elapsedTime * 0.3) * 4
         flyingSaucer.rotation.y = elapsedTime * 0.15
     }
+
+    // shuttle : lumières qui clignotent aléatoirement
+    shuttleLights.forEach(light => {
+        const seed = light.userData.flickerSeed
+        const flicker = Math.sin(elapsedTime * 8.3 + seed * 50) *
+                        Math.sin(elapsedTime * 3.7 + seed * 30) *
+                        Math.sin(elapsedTime * 13.1 + seed * 70)
+        light.intensity = flicker > 0.3 ? 2.5 + Math.random() * 1.5 : 0
+    })
 
     // glitch uniquement sur les écrans holographiques
     holoMats.forEach(m => { m.uniforms.time.value = elapsedTime })

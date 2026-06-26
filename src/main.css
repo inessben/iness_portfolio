@@ -639,8 +639,8 @@ canvas:not(.minimap) {
     .tuto-popup__action { min-width: calc(50% - 4px); }
 }
 
-/* ── Mobile phone ──────────────────────────────── */
-@media (max-width: 600px) {
+/* ── Mobile portrait — demande de tourner le téléphone ── */
+@media (max-width: 600px) and (orientation: portrait) {
     body {
         background: #121212;
         color: #bfbfbf;
@@ -665,6 +665,41 @@ canvas:not(.minimap) {
     @keyframes rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(90deg); } }
     * { visibility: hidden; }
     body::before, body::after { visibility: visible; }
+}
+
+/* ── Mobile landscape (16:9) ──────────────────── */
+@media (max-height: 500px) and (orientation: landscape) {
+    .mobile-joystick { display: block; width: 90px; height: 90px; bottom: 10px; left: 14px; }
+    .mobile-joystick__knob { width: 34px; height: 34px; margin: -17px 0 0 -17px; }
+    .minimap { width: 80px; height: 80px; bottom: 10px; right: 10px; }
+    .toolbar { top: 8px; right: 8px; gap: 6px; }
+    .volume-btn { width: 30px; height: 30px; }
+    .cv-btn { height: 30px; padding: 0 10px; font-size: 7px; letter-spacing: 1px; }
+    .hud { top: 8px; left: 8px; }
+    .hud__zone { font-size: 8px; letter-spacing: 2px; }
+    .hud__coords { font-size: 7px; }
+    .proximity-card { width: min(320px, 55vw); }
+    .pc-header { padding: 16px 16px 12px; gap: 10px; }
+    .pc-title { font-size: 12px; letter-spacing: 2px; }
+    .pc-close { top: 12px; right: 12px; width: 26px; height: 26px; font-size: 10px; }
+    .pc-body { padding: 14px 16px; }
+    .pc-text { font-size: 10px; line-height: 1.6; }
+    .pc-project { padding: 10px 12px; gap: 8px; }
+    .pc-project__name { font-size: 9px; }
+    .pc-project__desc { font-size: 8px; }
+    .pc-skill-group { margin-bottom: 12px; }
+    .pc-skill-group__label { font-size: 8px; margin-bottom: 6px; }
+    .pc-tag { font-size: 8px; padding: 4px 8px; }
+    .pc-link { padding: 10px 12px; font-size: 9px; gap: 8px; }
+    .tuto-popup { max-width: 380px; padding: 16px 20px 14px; }
+    .tuto-popup__title { font-size: 14px; letter-spacing: 5px; margin-bottom: 2px; }
+    .tuto-popup__keys { margin-bottom: 12px; gap: 4px; }
+    .tuto-popup__key { width: 32px; height: 32px; font-size: 11px; }
+    .tuto-popup__actions { gap: 4px; margin-bottom: 12px; }
+    .tuto-popup__action { padding: 8px 4px 6px; gap: 3px; }
+    .tuto-popup__action-label { font-size: 7px; }
+    .tuto-popup__hint { font-size: 8px; margin-bottom: 12px; }
+    .tuto-popup__btn { padding: 14px 20px; font-size: 9px; letter-spacing: 3px; }
 }
 
 /* ── Tuto popup ────────────────────────────────── */
